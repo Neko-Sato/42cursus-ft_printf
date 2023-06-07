@@ -6,13 +6,14 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 01:26:02 by hshimizu          #+#    #+#             */
-/*   Updated: 2023/06/07 17:31:58 by hshimizu         ###   ########.fr       */
+/*   Updated: 2023/06/07 18:37:47 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FORMAT_H
 # define FORMAT_H
 # include <stddef.h>
+# include <stdarg.h>
 
 // typedef enum e_specifier
 // {
@@ -31,7 +32,7 @@
 # define FLAG_SPACE 0b010
 # define FLAG_PLUS 0b100
 
-typedef struct e_specifier
+typedef struct s_specifier
 {
 	int		flag;
 	int		field_width;
@@ -41,5 +42,6 @@ typedef struct e_specifier
 }			t_specifier;
 
 size_t		pars_specifier(t_specifier *specifier, const char *str);
+size_t		put_specifier(t_specifier *specifier, va_list ap);
 
 #endif
