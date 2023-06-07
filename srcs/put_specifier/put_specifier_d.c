@@ -1,13 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   find_format.c                                      :+:      :+:    :+:   */
+/*   put_specifier_d.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/06 23:36:53 by hshimizu          #+#    #+#             */
-/*   Updated: 2023/06/07 01:44:14 by hshimizu         ###   ########.fr       */
+/*   Created: 2023/06/07 20:32:36 by hshimizu          #+#    #+#             */
+/*   Updated: 2023/06/07 20:32:37 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-char	*find_format(char **str);
+#include "buf.h"
+#include <stddef.h>
+
+size_t	put_specifier_d(int n)
+{
+	return (buf_write_stdout("", 0));
+}
