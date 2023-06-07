@@ -1,9 +1,0 @@
-{
-	"files.associations": {
-		"ft_printf.h": "c",
-		"unistd.h": "c",
-		"stdarg.h": "c",
-		"buf.h": "c",
-		"format.h": "c"
-	}
-}
