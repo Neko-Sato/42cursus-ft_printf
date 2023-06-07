@@ -1,20 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   put_specifier_s.c                                  :+:      :+:    :+:   */
+/*   put_specifier_p.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/07 20:19:14 by hshimizu          #+#    #+#             */
-/*   Updated: 2023/06/07 20:31:27 by hshimizu         ###   ########.fr       */
+/*   Created: 2023/06/07 19:47:39 by hshimizu          #+#    #+#             */
+/*   Updated: 2023/06/07 22:16:46 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "buf.h"
-#include "utils.h"
+#include "format.h"
 #include <stddef.h>
 
-size_t	put_specifier_s(char *s)
+size_t	put_specifier_p(void *p)
 {
-	return (buf_write_stdout(s, ft_strlen(s)));
+	size_t	ret;
+
+	ret = 0;
+	ret += put_specifier_s("0x");
+	ret += put_specifier_xl((unsigned long)p, 0);
+	return (ret);
 }
