@@ -1,21 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   buf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/05 17:58:20 by hshimizu          #+#    #+#             */
-/*   Updated: 2023/06/07 18:04:48 by hshimizu         ###   ########.fr       */
+/*   Created: 2023/06/07 00:36:58 by hshimizu          #+#    #+#             */
+/*   Updated: 2023/06/07 17:19:44 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#ifndef BUF_H
+# define BUF_H
+# define BUF_SIZE 42
 
-# include <stdarg.h>
+# include <stddef.h>
 
-int	ft_printf(const char *format, ...);
-int	ft_vprintf(const char *format, va_list ap);
+size_t	buf_flush_stdout(void);
+size_t	buf_write_stdout(const char *str, size_t count);
 
 #endif

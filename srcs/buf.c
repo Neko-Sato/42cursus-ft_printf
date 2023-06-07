@@ -1,37 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_vfprintf.c                                      :+:      :+:    :+:   */
+/*   buf.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/05 16:40:44 by hshimizu          #+#    #+#             */
-/*   Updated: 2023/06/07 17:55:23 by hshimizu         ###   ########.fr       */
+/*   Created: 2023/06/06 23:49:38 by hshimizu          #+#    #+#             */
+/*   Updated: 2023/06/07 17:16:49 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "buf.h"
-#include "format.h"
-#include "ft_printf.h"
-#include <stdarg.h>
+#include <unistd.h>
 
-int	ft_vprintf(const char *format, va_list ap)
+static char		g_buf[BUF_SIZE];
+static size_t	g_buf_count;
+
+size_t	buf_flush_stdout(void)
 {
-	int			ret;
-	char		*temp;
-	t_specifier	specifier;
+	size_t	ret;
+
+	write(1, g_buf, g_buf_count);
+	ret = g_buf_count;
+	g_buf_count = 0;
+	return (ret);
+}
+
+size_t	buf_write_stdout(const char *str, size_t count)
+{
+	size_t	ret;
 
 	ret = 0;
-	while (1)
+	while (count--)
 	{
-		temp = ft_strchar(format, '%');
-		if (!temp)
-			break ;
-		ret += buf_write_stdout(format, temp - format);
-		format = temp + pars_specifier(&specifier, temp);
-		ret += put_specifier(&specifier, ap);
+		g_buf[g_buf_count++] = str++;
+		if (g_buf_count >= BUF_SIZE)
+			ret += buf_flush();
 	}
-	ret += buf_write_stdout(format, ft_strlen(format));
-	ret += buf_flush();
 	return (ret);
 }
