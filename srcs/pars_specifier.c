@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 00:47:21 by hshimizu          #+#    #+#             */
-/*   Updated: 2023/06/07 18:17:31 by hshimizu         ###   ########.fr       */
+/*   Updated: 2023/06/07 18:55:22 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ size_t	pars_specifier(t_specifier *specifier, const char *str)
 	pars_field_width(&str, &specifier->field_width);
 	specifier->accuracy = 0;
 	pars_accuracy(&str, &specifier->accuracy);
-	specifier->specifier = *str;
+	specifier->specifier = *str++;
 	return (str - _str);
 }
 

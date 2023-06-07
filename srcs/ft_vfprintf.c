@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:40:44 by hshimizu          #+#    #+#             */
-/*   Updated: 2023/06/07 18:39:51 by hshimizu         ###   ########.fr       */
+/*   Updated: 2023/06/07 18:50:54 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	ft_vprintf(const char *format, va_list ap)
 	ret = 0;
 	while (1)
 	{
-		temp = ft_strchar(format, '%');
+		temp = ft_strchr(format, '%');
 		if (!temp)
 			break ;
 		ret += buf_write_stdout(format, temp - format);
