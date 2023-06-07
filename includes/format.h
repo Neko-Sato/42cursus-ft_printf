@@ -6,15 +6,15 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 01:26:02 by hshimizu          #+#    #+#             */
-/*   Updated: 2023/06/07 20:23:29 by hshimizu         ###   ########.fr       */
+/*   Updated: 2023/06/07 21:47:14 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FORMAT_H
 # define FORMAT_H
 
-# include <stddef.h>
 # include <stdarg.h>
+# include <stddef.h>
 
 # define FLAG_HASH 0b001
 # define FLAG_SPACE 0b010
@@ -39,5 +39,6 @@ size_t		put_specifier_d(int n);
 size_t		put_specifier_u(unsigned int n);
 size_t		put_specifier_x(unsigned int n, int large);
 size_t		put_specifier_percent(void);
+size_t		put_specifier_xl(unsigned long n, int large);
 
 #endif
