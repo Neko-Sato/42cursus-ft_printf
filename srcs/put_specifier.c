@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 18:34:56 by hshimizu          #+#    #+#             */
-/*   Updated: 2023/06/07 19:39:36 by hshimizu         ###   ########.fr       */
+/*   Updated: 2023/06/07 19:51:00 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,13 @@ size_t	put_specifier(t_specifier *specifier, va_list ap)
 	else if (specifier->specifier == 'd')
 		ret = 0; // put_specifier_d(va_arg(ap, int));
 	else if (specifier->specifier == 'i')
-		ret = 0; // put_specifier_i(va_arg(ap, int));
+		ret = 0; // put_specifier_d(va_arg(ap, int));
 	else if (specifier->specifier == 'u')
 		ret = 0; // put_specifier_u(va_arg(ap, unsigned int));
 	else if (specifier->specifier == 'x')
-		ret = 0; // put_specifier_x(va_arg(ap, unsigned int));
+		ret = 0; // put_specifier_x(va_arg(ap, unsigned int), 0);
 	else if (specifier->specifier == 'X')
-		ret = 0; // put_specifier_X(va_arg(ap, unsigned int));
+		ret = 0; // put_specifier_x(va_arg(ap, unsigned int), 1);
 	else if (specifier->specifier == '%')
 		ret = put_specifier_percent();
 	else

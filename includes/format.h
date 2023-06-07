@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 01:26:02 by hshimizu          #+#    #+#             */
-/*   Updated: 2023/06/07 19:35:43 by hshimizu         ###   ########.fr       */
+/*   Updated: 2023/06/07 19:49:55 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,8 @@ size_t		put_specifier_c(char c);
 size_t		put_specifier_s(char *s);
 size_t		put_specifier_p(void *p);
 size_t		put_specifier_d(int n);
-size_t		put_specifier_i(int n);
 size_t		put_specifier_u(unsigned int n);
-size_t		put_specifier_x(unsigned int n);
-size_t		put_specifier_X(unsigned int n);
+size_t		put_specifier_x(unsigned int n, int large);
 size_t		put_specifier_percent(void);
 
 #endif
