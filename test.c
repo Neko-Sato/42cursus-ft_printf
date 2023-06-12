@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   put_specifier_percent.c                            :+:      :+:    :+:   */
+/*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/07 20:18:24 by hshimizu          #+#    #+#             */
-/*   Updated: 2023/06/07 21:51:01 by hshimizu         ###   ########.fr       */
+/*   Created: 2023/06/13 04:07:59 by hshimizu          #+#    #+#             */
+/*   Updated: 2023/06/13 05:16:50 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "format.h"
-#include <stddef.h>
+#include "includes/ft_printf.h"
+#include <stdio.h>
 
-size_t	put_specifier_percent(void)
+int	main(void)
 {
-	return (put_specifier_c('%'));
+	ft_printf("%#p\n", 0);
 }

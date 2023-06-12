@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   ft_atou.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/07 18:20:39 by hshimizu          #+#    #+#             */
-/*   Updated: 2023/06/13 03:30:43 by hshimizu         ###   ########.fr       */
+/*   Created: 2023/06/13 03:21:11 by hshimizu          #+#    #+#             */
+/*   Updated: 2023/06/13 05:17:14 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
+#include "utils.h"
 
-# include <stddef.h>
+unsigned int	ft_atou(const char *str)
+{
+	unsigned int	ret;
 
-unsigned int	ft_abs(int j);
-size_t			ft_strlen(const char *s);
-char			*ft_strchr(const char *s, int c);
-int				ft_isdigit(int c);
-size_t			ft_udigit(unsigned int n);
-unsigned int	ft_atou(const char *str);
-
-#endif
+	ret = 0;
+	while (ft_isdigit(*str))
+		ret = ret * 10 + *str++ - '0';
+	return (ret);
+}

@@ -6,7 +6,7 @@
 #    By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/05 16:49:22 by hshimizu          #+#    #+#              #
-#    Updated: 2023/06/07 22:12:10 by hshimizu         ###   ########.fr        #
+#    Updated: 2023/06/13 05:14:11 by hshimizu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,28 +23,37 @@ SRCS			= \
 	buf.c \
 	put_specifier.c \
 	pars_specifier.c \
-	put_specifier_c.c \
-	put_specifier_p.c \
-	put_specifier_s.c \
-	put_specifier_x.c \
-	put_specifier_d.c \
-	put_specifier_u.c \
-	put_specifier_percent.c \
-	put_specifier_xl.c \
+	put_specifier_type_c.c \
+	put_specifier_type_p.c \
+	put_specifier_type_s.c \
+	put_specifier_type_x.c \
+	put_specifier_type_d.c \
+	put_specifier_type_u.c \
+	put_specifier_type_percent.c \
+	put_specifier_type_xl.c \
 
 UTILS			= \
 	ft_abs.c \
 	ft_strchr.c \
 	ft_strlen.c \
+	ft_atou.c \
+	ft_isdigit.c \
+	ft_udigit.c \
 
 OBJECTS			= \
 	$(addprefix $(SRCS_DIR)/, $(SRCS:.c=.o)) \
 	$(addprefix $(UTILS_DIR)/, $(UTILS:.c=.o)) \
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re test
 
 $(NAME): $(OBJECTS)
-	$(AR) rc $(NAME) $(OBJECTS)
+	$(AR) rc $@ objs/*.o
+
+bonus: $(NAME)
+
+test: test.c $(NAME)
+	$(CC) $(CFLAGS) -I $(INCLUDES_DIR) $^ -o $@
+	./$@
 
 %.o: %.c
 	$(CC) -c $(CFLAGS) -I $(INCLUDES_DIR) $< -o $@
