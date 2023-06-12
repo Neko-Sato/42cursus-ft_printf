@@ -6,7 +6,7 @@
 #    By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/05 16:49:22 by hshimizu          #+#    #+#              #
-#    Updated: 2023/06/13 05:37:26 by hshimizu         ###   ########.fr        #
+#    Updated: 2023/06/13 06:07:20 by hshimizu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,8 +52,7 @@ $(NAME): $(OBJECTS)
 bonus: $(NAME)
 
 test: test.c $(NAME)
-	$(CC) $(CFLAGS) -I $(INCLUDES_DIR) $^ -o $@
-	./$@
+	$(CC) -g -I $(INCLUDES_DIR) $^ -o $@
 
 %.o: %.c
 	$(CC) -c $(CFLAGS) -I $(INCLUDES_DIR) $< -o $@
