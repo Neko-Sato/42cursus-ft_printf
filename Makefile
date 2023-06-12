@@ -6,7 +6,7 @@
 #    By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/05 16:49:22 by hshimizu          #+#    #+#              #
-#    Updated: 2023/06/13 05:14:11 by hshimizu         ###   ########.fr        #
+#    Updated: 2023/06/13 05:26:01 by hshimizu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,7 @@ OBJECTS			= \
 .PHONY: all clean fclean re test
 
 $(NAME): $(OBJECTS)
-	$(AR) rc $@ objs/*.o
+	$(AR) rc $@ $^
 
 bonus: $(NAME)
 

@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 00:47:21 by hshimizu          #+#    #+#             */
-/*   Updated: 2023/06/13 04:54:15 by hshimizu         ###   ########.fr       */
+/*   Updated: 2023/06/13 05:21:09 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,17 +55,17 @@ static size_t	pars_flag(const char *specifier, int *flag)
 	return (specifier - _specifier);
 }
 
-static size_t	pars_width(const char *specifier, int *field_width)
+static size_t	pars_width(const char *specifier, int *width)
 {
 	size_t	ret;
 
 	ret = 0;
 	if (!ft_isdigit(*specifier))
-		*field_width = 6;
+		*width = 6;
 	else
 	{
-		*field_width = ft_atou(specifier);
-		ret = ft_udigit(*field_width);
+		*width = ft_atou(specifier);
+		ret = ft_udigit(*width);
 	}
 	return (ret);
 }
