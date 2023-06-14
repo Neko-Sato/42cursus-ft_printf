@@ -1,19 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   put_specifier_type_c.c                             :+:      :+:    :+:   */
+/*   put_type_d.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/07 20:19:44 by hshimizu          #+#    #+#             */
-/*   Updated: 2023/06/13 03:10:23 by hshimizu         ###   ########.fr       */
+/*   Created: 2023/06/07 20:32:36 by hshimizu          #+#    #+#             */
+/*   Updated: 2023/06/14 21:46:04 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "buf.h"
+#include "format.h"
+#include "utils.h"
 #include <stddef.h>
 
-size_t	put_specifier_type_c(char c)
+size_t	put_type_d(int n)
 {
-	return (buf_write_stdout(&c, 1));
+	size_t	ret;
+
+	ret = 0;
+	if (n < 0)
+		ret += put_type_c('-', 0, NULL);
+	ret += put_type_u(ft_abs(n));
+	return (ret);
 }

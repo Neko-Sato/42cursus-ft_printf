@@ -1,24 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   put_specifier_type_p.c                             :+:      :+:    :+:   */
+/*   put_type_s.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/07 19:47:39 by hshimizu          #+#    #+#             */
-/*   Updated: 2023/06/13 03:11:23 by hshimizu         ###   ########.fr       */
+/*   Created: 2023/06/07 20:19:14 by hshimizu          #+#    #+#             */
+/*   Updated: 2023/06/13 03:10:37 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "buf.h"
 #include "format.h"
+#include "utils.h"
 #include <stddef.h>
 
-size_t	put_specifier_type_p(void *p)
+size_t	put_type_s(char *s, int flag, int *width, int *precision)
 {
 	size_t	ret;
+	size_t	len;
+	int		i;
 
+	if (!s)
+		return (put_type_s("(null)", 0, NULL, NULL));
 	ret = 0;
-	ret += put_specifier_type_s("0x");
-	ret += put_specifier_type_xl((unsigned long)p, 0);
+	i = 0;
+	len = ft_strlen(s);
+	if (precision && *precision && (int)len > *precision)
+		len = *precision;
+	if (flag && FLAG_MINUS)
+		ret += buf_write_stdout(s, len);
+	if (width)
+		while (*width - (int)len > i)
+			ret += buf_write_stdout(" ", 1) + 0 * i++;
+	if (!(flag && FLAG_MINUS))
+		ret += buf_write_stdout(s, len);
 	return (ret);
 }

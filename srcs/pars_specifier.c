@@ -6,22 +6,25 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 00:47:21 by hshimizu          #+#    #+#             */
-/*   Updated: 2023/06/13 05:21:09 by hshimizu         ###   ########.fr       */
+/*   Updated: 2023/06/14 21:47:12 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "format.h"
 #include "utils.h"
+#include <limits.h>
 
 static size_t	pars_flag(const char *specifier, int *flag);
-static size_t	pars_width(const char *specifier, int *width);
-static size_t	pars_precision(const char *specifier, int *precision);
+static size_t	pars_width(const char *specifier, int **width);
+static size_t	pars_precision(const char *specifier, int **precision);
 
 //	%[flags][width][.precision]type
 size_t	pars_specifier(t_specifier *specifier, const char *str)
 {
 	const char	*_str;
 
+	specifier->width = &specifier->__width;
+	specifier->precision = &specifier->__precision;
 	_str = str++;
 	str += pars_flag(str, &specifier->flag);
 	str += pars_width(str, &specifier->width);
@@ -55,32 +58,32 @@ static size_t	pars_flag(const char *specifier, int *flag)
 	return (specifier - _specifier);
 }
 
-static size_t	pars_width(const char *specifier, int *width)
+static size_t	pars_width(const char *specifier, int **width)
 {
 	size_t	ret;
 
 	ret = 0;
 	if (!ft_isdigit(*specifier))
-		*width = 6;
+		*width = NULL;
 	else
 	{
-		*width = ft_atou(specifier);
-		ret = ft_udigit(*width);
+		**width = ft_atou(specifier);
+		ret = ft_udigit(**width);
 	}
 	return (ret);
 }
 
-static size_t	pars_precision(const char *specifier, int *precision)
+static size_t	pars_precision(const char *specifier, int **precision)
 {
 	size_t	ret;
 
 	ret = 0;
 	if (*specifier++ != '.')
-		*precision = 1;
+		*precision = NULL;
 	else
 	{
-		*precision = ft_atou(specifier);
-		ret = 1 + ft_udigit(*precision);
+		**precision = ft_atou(specifier);
+		ret = 1 + ft_udigit(**precision);
 	}
 	return (ret);
 }

@@ -6,11 +6,11 @@
 #    By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/05 16:49:22 by hshimizu          #+#    #+#              #
-#    Updated: 2023/06/13 06:07:20 by hshimizu         ###   ########.fr        #
+#    Updated: 2023/06/14 22:10:14 by hshimizu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CFLAGS			= -Wall -Wextra -Werror
+CFLAGS			= -Wall -Wextra -Werror -g
 
 NAME			= libftprintf.a
 DIR				= .
@@ -23,14 +23,14 @@ SRCS			= \
 	buf.c \
 	put_specifier.c \
 	pars_specifier.c \
-	put_specifier_type_c.c \
-	put_specifier_type_p.c \
-	put_specifier_type_s.c \
-	put_specifier_type_x.c \
-	put_specifier_type_d.c \
-	put_specifier_type_u.c \
-	put_specifier_type_percent.c \
-	put_specifier_type_xl.c \
+	put_type_c.c \
+	put_type_p.c \
+	put_type_s.c \
+	put_type_x.c \
+	put_type_d.c \
+	put_type_u.c \
+	put_type_percent.c \
+	put_type_xl.c \
 
 UTILS			= \
 	ft_abs.c \
