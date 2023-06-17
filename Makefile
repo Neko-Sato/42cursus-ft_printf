@@ -6,11 +6,11 @@
 #    By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/05 16:49:22 by hshimizu          #+#    #+#              #
-#    Updated: 2023/06/14 22:10:14 by hshimizu         ###   ########.fr        #
+#    Updated: 2023/06/17 19:39:04 by hshimizu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CFLAGS			= -Wall -Wextra -Werror -g
+CFLAGS			= -Wall -Wextra -Werror
 
 NAME			= libftprintf.a
 DIR				= .
