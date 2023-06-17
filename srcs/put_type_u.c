@@ -17,8 +17,8 @@
 
 size_t	put_type_u(UINT n, int flag, int width, int precision)
 {
-	int ret;
-	int len;
+	int	ret;
+	int	len;
 
 	ret = 0;
 	len = ft_udigit(n);

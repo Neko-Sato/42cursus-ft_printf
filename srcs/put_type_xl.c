@@ -27,8 +27,7 @@ static size_t	ft_ultohlen(unsigned long n)
 	return (len);
 }
 
-size_t	put_type_xl(unsigned long n, int large, int flag, int width,
-		int precision)
+size_t	put_type_xl(unsigned long n, int flag, int width, int precision)
 {
 	size_t	ret;
 	char	buf[16];
@@ -38,13 +37,13 @@ size_t	put_type_xl(unsigned long n, int large, int flag, int width,
 
 	ret = 0;
 	if (n && flag & FLAG_HASH)
-		ret += buf_write_stdout("0x0X" + 2 * large, 2);
+		ret += buf_write_stdout("0x0X" + 2 * (0 < (flag & X_LARGE)), 2);
 	len = ft_ultohlen(n);
 	i = len;
 	while (1)
 	{
 		m = n & 0xFUL;
-		buf[--i] = '0' + m + (10 <= m) * (0x7 + (large == 0) * 0x20);
+		buf[--i] = '0' + m + (10 <= m) * (0x7 + (0 < (flag & X_LARGE)) * 0x20);
 		n >>= 4;
 		if (!n)
 			break ;

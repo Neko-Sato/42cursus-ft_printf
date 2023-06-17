@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 01:26:02 by hshimizu          #+#    #+#             */
-/*   Updated: 2023/06/17 16:08:02 by hshimizu         ###   ########.fr       */
+/*   Updated: 2023/06/17 17:14:38 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,16 @@ typedef enum e_type
 	type_percent = '%',
 }			t_type;
 
-# define FLAG_NONE (0)
-# define FLAG_MINUS (1 << 0)
-# define FLAG_ZERO (1 << 1)
-# define FLAG_HASH (1 << 2)
-# define FLAG_SPACE (1 << 3)
-# define FLAG_PLUS (1 << 4)
+# define FLAG_NONE 0
+# define FLAG_MINUS 1
+# define FLAG_ZERO 2
+# define FLAG_HASH 4
+# define FLAG_SPACE 8
+# define FLAG_PLUS 16
+# define X_LARGE 32
 
-# define WIDTH_DEFAULT (-1)
-# define PRECISION_DEFAULT (-1)
+# define WIDTH_DEFAULT -1
+# define PRECISION_DEFAULT -1
 
 typedef struct s_specifier
 {
@@ -59,9 +60,8 @@ size_t		put_type_s(char *s, int flag, int width, int precision);
 size_t		put_type_p(void *p);
 size_t		put_type_d(int n, int flag, int width, int precision);
 size_t		put_type_u(UINT n, int flag, int width, int precision);
-size_t		put_type_x(UINT n, int large, int flag, int width, int precision);
+size_t		put_type_x(UINT n, int flag, int width, int precision);
 size_t		put_type_percent(void);
-size_t		put_type_xl(unsigned long n, int large, int flag, int width,
-				int precision);
+size_t		put_type_xl(unsigned long n, int flag, int width, int precision);
 
 #endif

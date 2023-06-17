@@ -24,7 +24,7 @@ size_t	put_type_d(int n, int flag, int width, int precision)
 
 	ret = 0;
 	un = ft_abs(n);
-	issign = n < 0 || 0 < (flag & (FLAG_SPACE | FLAG_PLUS));
+	issign = (n < 0 || 0 < (flag & (FLAG_SPACE | FLAG_PLUS)));
 	if (width != WIDTH_DEFAULT)
 		width -= issign;
 	len = ft_udigit(un);

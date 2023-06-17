@@ -15,6 +15,6 @@
 
 size_t	put_type_p(void *p)
 {
-	return (put_type_xl((unsigned long)p, 0, FLAG_HASH, WIDTH_DEFAULT,
+	return (put_type_xl((unsigned long)p, FLAG_HASH, WIDTH_DEFAULT,
 			PRECISION_DEFAULT));
 }
