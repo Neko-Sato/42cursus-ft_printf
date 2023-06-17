@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 01:26:02 by hshimizu          #+#    #+#             */
-/*   Updated: 2023/06/17 17:14:38 by hshimizu         ###   ########.fr       */
+/*   Updated: 2023/06/17 18:59:22 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ size_t		_put_sign(int n, int flag);
 
 size_t		put_type_c(char c, int flag, int width);
 size_t		put_type_s(char *s, int flag, int width, int precision);
-size_t		put_type_p(void *p);
+size_t		put_type_p(void *p, int flag, int width, int precision);
 size_t		put_type_d(int n, int flag, int width, int precision);
 size_t		put_type_u(UINT n, int flag, int width, int precision);
 size_t		put_type_x(UINT n, int flag, int width, int precision);

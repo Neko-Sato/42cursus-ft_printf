@@ -13,8 +13,7 @@
 #include "format.h"
 #include <stddef.h>
 
-size_t	put_type_p(void *p)
+size_t	put_type_p(void *p, int flag, int width, int precision)
 {
-	return (put_type_xl((unsigned long)p, FLAG_HASH, WIDTH_DEFAULT,
-			PRECISION_DEFAULT));
+	return (put_type_xl((unsigned long)p, flag | FLAG_HASH, width, precision));
 }

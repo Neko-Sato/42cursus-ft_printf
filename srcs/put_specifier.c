@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 18:34:56 by hshimizu          #+#    #+#             */
-/*   Updated: 2023/06/17 17:14:28 by hshimizu         ###   ########.fr       */
+/*   Updated: 2023/06/17 18:59:50 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ size_t	put_specifier(t_specifier *s, va_list ap)
 	else if (s->type == type_s)
 		ret = put_type_s(va_arg(ap, char *), s->flag, s->width, s->precision);
 	else if (s->type == type_p)
-		ret = put_type_p(va_arg(ap, void *));
+		ret = put_type_p(va_arg(ap, void *), s->flag, s->width, s->precision);
 	else if (s->type == type_d)
 		ret = put_type_d(va_arg(ap, int), s->flag, s->width, s->precision);
 	else if (s->type == type_i)
@@ -53,8 +53,7 @@ size_t	_put_width(int flag, int width, int len, int after)
 	ret = 0;
 	if (width != WIDTH_DEFAULT && !((flag & FLAG_MINUS) ^ after))
 		while (width - len > i)
-			ret += buf_write_stdout(" 0" + (0 < (flag & FLAG_ZERO)), 1) + 0
-				* i++;
+			ret += buf_write_stdout(&" 0"[0 < (flag & FLAG_ZERO)], 1) + 0 * i++;
 	return (ret);
 }
 
@@ -76,8 +75,8 @@ size_t	_put_uint(UINT n, size_t digit)
 
 size_t	_put_sign(int n, int flag)
 {
-	int	ret;
-	int	sgin;
+	size_t	ret;
+	int		sgin;
 
 	ret = 0;
 	if (n < 0)
@@ -89,6 +88,6 @@ size_t	_put_sign(int n, int flag)
 	else
 		sgin = -1;
 	if (0 <= sgin)
-		ret += buf_write_stdout("- +" + sgin, 1);
+		ret += buf_write_stdout(&"- +"[sgin], 1);
 	return (ret);
 }

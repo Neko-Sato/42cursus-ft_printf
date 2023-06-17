@@ -17,21 +17,21 @@
 
 size_t	put_type_u(UINT n, int flag, int width, int precision)
 {
-	int	ret;
-	int	len;
+	size_t	ret;
+	size_t	len;
 
 	ret = 0;
 	len = ft_udigit(n);
 	if (precision != PRECISION_DEFAULT)
 	{
-		if (len < precision)
+		if ((int)len < precision)
 			len = precision;
 		else
 			flag &= ~FLAG_ZERO;
 	}
 	ret += _put_width(flag, width, len, 0);
 	if (precision != PRECISION_DEFAULT)
-		ret += put_type_u(n, FLAG_ZERO, precision, PRECISION_DEFAULT);
+		ret += put_type_u(n, flag | FLAG_ZERO, precision, PRECISION_DEFAULT);
 	else
 		ret += _put_uint(n, len);
 	ret += _put_width(flag, width, len, 1);
