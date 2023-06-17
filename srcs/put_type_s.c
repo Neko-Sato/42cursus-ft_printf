@@ -15,25 +15,20 @@
 #include "utils.h"
 #include <stddef.h>
 
-size_t	put_type_s(char *s, int flag, int *width, int *precision)
+size_t	put_type_s(char *s, int flag, int width, int precision)
 {
 	size_t	ret;
 	size_t	len;
-	int		i;
 
 	if (!s)
-		return (put_type_s("(null)", 0, NULL, NULL));
+		return (put_type_s("(null)", FLAG_NONE, WIDTH_DEFAULT,
+				PRECISION_DEFAULT));
 	ret = 0;
-	i = 0;
 	len = ft_strlen(s);
-	if (precision && *precision && (int)len > *precision)
-		len = *precision;
-	if (flag && FLAG_MINUS)
-		ret += buf_write_stdout(s, len);
-	if (width)
-		while (*width - (int)len > i)
-			ret += buf_write_stdout(" ", 1) + 0 * i++;
-	if (!(flag && FLAG_MINUS))
-		ret += buf_write_stdout(s, len);
+	if (precision != PRECISION_DEFAULT && (int)len > precision)
+		len = precision;
+	ret += _put_width(flag, width, len, 0);
+	ret += buf_write_stdout(s, len);
+	ret += _put_width(flag, width, len, 1);
 	return (ret);
 }

@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 
 #include "buf.h"
+#include "format.h"
+#include "utils.h"
 #include <stddef.h>
 
 static size_t	ft_ultohlen(unsigned long n)
@@ -25,13 +27,18 @@ static size_t	ft_ultohlen(unsigned long n)
 	return (len);
 }
 
-size_t	put_type_xl(unsigned long n, int large)
+size_t	put_type_xl(unsigned long n, int large, int flag, int width,
+		int precision)
 {
-	char			buf[16];
-	size_t			i;
-	unsigned int	m;
-	size_t			len;
+	size_t	ret;
+	char	buf[16];
+	size_t	i;
+	UINT	m;
+	size_t	len;
 
+	ret = 0;
+	if (n && flag & FLAG_HASH)
+		ret += buf_write_stdout("0x0X" + 2 * large, 2);
 	len = ft_ultohlen(n);
 	i = len;
 	while (1)
@@ -42,5 +49,6 @@ size_t	put_type_xl(unsigned long n, int large)
 		if (!n)
 			break ;
 	}
-	return (buf_write_stdout(buf, len));
+	ret += buf_write_stdout(buf, len);
+	return (ret);
 }

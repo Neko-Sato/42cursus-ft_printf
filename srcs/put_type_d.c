@@ -14,13 +14,27 @@
 #include "utils.h"
 #include <stddef.h>
 
-size_t	put_type_d(int n)
+size_t	put_type_d(int n, int flag, int width, int precision)
 {
-	size_t	ret;
+	UINT	un;
+	int		issign;
+	int		_width;
+	int		ret;
+	int		len;
 
 	ret = 0;
-	if (n < 0)
-		ret += put_type_c('-', 0, NULL);
-	ret += put_type_u(ft_abs(n));
+	un = ft_abs(n);
+	issign = n < 0 || 0 < (flag & (FLAG_SPACE | FLAG_PLUS));
+	if (width != WIDTH_DEFAULT)
+		width -= issign;
+	len = ft_udigit(un);
+	_width = WIDTH_DEFAULT;
+	if (!(flag & FLAG_ZERO))
+		ret += _put_width(flag, width, len, 0);
+	else
+		_width = width;
+	ret += _put_sign(n, flag);
+	ret += put_type_u(un, flag, _width, precision);
+	ret += _put_width(flag, width, len, 1);
 	return (ret);
 }

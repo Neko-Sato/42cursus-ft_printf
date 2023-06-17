@@ -15,5 +15,5 @@
 
 size_t	put_type_percent(void)
 {
-	return (put_type_c('%', 0, NULL));
+	return (put_type_c('%', FLAG_NONE, WIDTH_DEFAULT));
 }

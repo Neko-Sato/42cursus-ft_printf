@@ -11,23 +11,29 @@
 /* ************************************************************************** */
 
 #include "buf.h"
+#include "format.h"
 #include "utils.h"
 #include <stddef.h>
 
-size_t	put_type_u(unsigned int n)
+size_t	put_type_u(UINT n, int flag, int width, int precision)
 {
-	char	buf[10];
-	size_t	i;
-	size_t	len;
+	int ret;
+	int len;
 
+	ret = 0;
 	len = ft_udigit(n);
-	i = len;
-	while (1)
+	if (precision != PRECISION_DEFAULT)
 	{
-		buf[--i] = '0' + n % 10;
-		n /= 10;
-		if (!n)
-			break ;
+		if (len < precision)
+			len = precision;
+		else
+			flag &= ~FLAG_ZERO;
 	}
-	return (buf_write_stdout(buf, len));
+	ret += _put_width(flag, width, len, 0);
+	if (precision != PRECISION_DEFAULT)
+		ret += put_type_u(n, FLAG_ZERO, precision, PRECISION_DEFAULT);
+	else
+		ret += _put_uint(n, len);
+	ret += _put_width(flag, width, len, 1);
+	return (ret);
 }

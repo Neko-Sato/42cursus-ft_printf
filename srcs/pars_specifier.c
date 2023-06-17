@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 00:47:21 by hshimizu          #+#    #+#             */
-/*   Updated: 2023/06/14 21:47:12 by hshimizu         ###   ########.fr       */
+/*   Updated: 2023/06/15 05:19:04 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,14 @@
 #include <limits.h>
 
 static size_t	pars_flag(const char *specifier, int *flag);
-static size_t	pars_width(const char *specifier, int **width);
-static size_t	pars_precision(const char *specifier, int **precision);
+static size_t	pars_width(const char *specifier, int *width);
+static size_t	pars_precision(const char *specifier, int *precision);
 
 //	%[flags][width][.precision]type
 size_t	pars_specifier(t_specifier *specifier, const char *str)
 {
 	const char	*_str;
 
-	specifier->width = &specifier->__width;
-	specifier->precision = &specifier->__precision;
 	_str = str++;
 	str += pars_flag(str, &specifier->flag);
 	str += pars_width(str, &specifier->width);
@@ -38,7 +36,7 @@ static size_t	pars_flag(const char *specifier, int *flag)
 	const char	*_specifier;
 
 	_specifier = specifier;
-	*flag = 0;
+	*flag = FLAG_NONE;
 	while (1)
 	{
 		if (*specifier == '-')
@@ -58,32 +56,34 @@ static size_t	pars_flag(const char *specifier, int *flag)
 	return (specifier - _specifier);
 }
 
-static size_t	pars_width(const char *specifier, int **width)
+static size_t	pars_width(const char *specifier, int *width)
 {
 	size_t	ret;
 
 	ret = 0;
 	if (!ft_isdigit(*specifier))
-		*width = NULL;
+		*width = WIDTH_DEFAULT;
 	else
 	{
-		**width = ft_atou(specifier);
-		ret = ft_udigit(**width);
+		*width = ft_atou(specifier);
+		ret = ft_udigit(*width);
 	}
 	return (ret);
 }
 
-static size_t	pars_precision(const char *specifier, int **precision)
+static size_t	pars_precision(const char *specifier, int *precision)
 {
 	size_t	ret;
 
 	ret = 0;
 	if (*specifier++ != '.')
-		*precision = NULL;
+		*precision = PRECISION_DEFAULT;
 	else
 	{
-		**precision = ft_atou(specifier);
-		ret = 1 + ft_udigit(**precision);
+		ret++;
+		*precision = ft_atou(specifier);
+		if (ft_isdigit(*specifier))
+			ret += ft_udigit(*precision);
 	}
 	return (ret);
 }

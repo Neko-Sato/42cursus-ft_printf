@@ -15,10 +15,6 @@
 
 size_t	put_type_p(void *p)
 {
-	size_t	ret;
-
-	ret = 0;
-	ret += put_type_s("0x", 0, NULL, NULL);
-	ret += put_type_xl((unsigned long)p, 0);
-	return (ret);
+	return (put_type_xl((unsigned long)p, 0, FLAG_HASH, WIDTH_DEFAULT,
+			PRECISION_DEFAULT));
 }
