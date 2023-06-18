@@ -6,11 +6,11 @@
 #    By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/05 16:49:22 by hshimizu          #+#    #+#              #
-#    Updated: 2023/06/17 19:39:04 by hshimizu         ###   ########.fr        #
+#    Updated: 2023/06/18 21:37:56 by hshimizu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CFLAGS			= -Wall -Wextra -Werror
+CFLAGS			= -Wall -Wextra -Werror -g
 
 NAME			= libftprintf.a
 DIR				= .
@@ -41,12 +41,14 @@ UTILS			= \
 	ft_udigit.c \
 
 OBJECTS			= \
-	$(addprefix $(SRCS_DIR)/, $(SRCS:.c=.o)) \
+	$(addprefix $(SRCS_DIR)/, $(SRCS:.c=.o))\
+
+UTILS_OBJECTS	= \
 	$(addprefix $(UTILS_DIR)/, $(UTILS:.c=.o)) \
 
 .PHONY: all clean fclean re test
 
-$(NAME): $(OBJECTS)
+$(NAME): $(OBJECTS) $(UTILS_OBJECTS)
 	$(AR) rc $@ $^
 
 bonus: $(NAME)
@@ -60,7 +62,7 @@ test: test.c $(NAME)
 all: $(NAME)
 
 clean:
-	$(RM) $(OBJECTS)
+	$(RM) $(OBJECTS) $(UTILS_OBJECTS)
 
 fclean: clean
 	$(RM) $(NAME)
