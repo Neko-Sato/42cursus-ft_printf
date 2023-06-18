@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 01:26:02 by hshimizu          #+#    #+#             */
-/*   Updated: 2023/06/17 18:59:22 by hshimizu         ###   ########.fr       */
+/*   Updated: 2023/06/17 20:57:13 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef enum e_type
 # define FLAG_SPACE 8
 # define FLAG_PLUS 16
 # define X_LARGE 32
+# define X_IS_P 64
 
 # define WIDTH_DEFAULT -1
 # define PRECISION_DEFAULT -1

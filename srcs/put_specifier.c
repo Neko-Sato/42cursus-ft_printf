@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 18:34:56 by hshimizu          #+#    #+#             */
-/*   Updated: 2023/06/17 18:59:50 by hshimizu         ###   ########.fr       */
+/*   Updated: 2023/06/18 17:13:07 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ size_t	_put_width(int flag, int width, int len, int after)
 	ret = 0;
 	if (width != WIDTH_DEFAULT && !((flag & FLAG_MINUS) ^ after))
 		while (width - len > i)
-			ret += buf_write_stdout(&" 0"[0 < (flag & FLAG_ZERO)], 1) + 0 * i++;
+			ret += buf_write_stdout(&" 0"[!!(flag & FLAG_ZERO)], 1) + 0 * i++;
 	return (ret);
 }
 

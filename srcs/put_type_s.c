@@ -21,8 +21,7 @@ size_t	put_type_s(char *s, int flag, int width, int precision)
 	size_t	len;
 
 	if (!s)
-		return (put_type_s("(null)", FLAG_NONE, WIDTH_DEFAULT,
-				PRECISION_DEFAULT));
+		return (put_type_s("(null)", flag, width, precision));
 	ret = 0;
 	len = ft_strlen(s);
 	if (precision != PRECISION_DEFAULT && (int)len > precision)

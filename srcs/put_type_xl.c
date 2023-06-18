@@ -55,16 +55,16 @@ static size_t	_put_type_xl(unsigned long n, int flag, int width,
 	len = ft_ultohlen(n);
 	if (precision != PRECISION_DEFAULT)
 	{
-		if ((int)len < precision)
+		if ((int)len < precision || !n)
 			len = precision;
 		else
 			flag &= ~FLAG_ZERO;
 	}
 	ret += _put_width(flag, width, len, 0);
-	if (precision != PRECISION_DEFAULT)
-		ret += _put_type_xl(n, flag | FLAG_ZERO, precision, PRECISION_DEFAULT);
-	else
-		ret += _put_hex(n, 0 < (flag & X_LARGE), len);
+	if (precision && precision != PRECISION_DEFAULT)
+		ret += _put_type_xl(n, (flag & ~FLAG_MINUS) | FLAG_ZERO, precision, PRECISION_DEFAULT);
+	else if (len)
+		ret += _put_hex(n, !!(flag & X_LARGE), len);
 	ret += _put_width(flag, width, len, 1);
 	return (ret);
 }
@@ -77,7 +77,7 @@ size_t	put_type_xl(unsigned long n, int flag, int width, int precision)
 	size_t	len;
 
 	ret = 0;
-	isprefix = (0 < (flag & FLAG_HASH));
+	isprefix = (!!(flag & (FLAG_HASH | X_IS_P)));
 	if (width != WIDTH_DEFAULT)
 		width -= 2 * isprefix;
 	len = ft_ultohlen(n);
@@ -86,8 +86,8 @@ size_t	put_type_xl(unsigned long n, int flag, int width, int precision)
 		ret += _put_width(flag, width, len, 0);
 	else
 		_width = width;
-	if (n && isprefix)
-		ret += buf_write_stdout(&"0x0X"[2 * (0 < (flag & X_LARGE))], 2);
+	if (precision && (n || flag & X_IS_P) && isprefix)
+		ret += buf_write_stdout(&"0x0X"[2 * !!(flag & X_LARGE)], 2);
 	ret += _put_type_xl(n, flag, _width, precision);
 	ret += _put_width(flag, width, len, 1);
 	return (ret);

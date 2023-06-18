@@ -16,25 +16,23 @@
 
 size_t	put_type_d(int n, int flag, int width, int precision)
 {
+	size_t	ret;
 	UINT	un;
 	int		issign;
-	int		_width;
-	int		ret;
 	int		len;
 
 	ret = 0;
 	un = ft_abs(n);
-	issign = (n < 0 || 0 < (flag & (FLAG_SPACE | FLAG_PLUS)));
-	if (width != WIDTH_DEFAULT)
-		width -= issign;
+	issign = (n < 0 || (flag & (FLAG_SPACE | FLAG_PLUS)));
+	width -= (width != WIDTH_DEFAULT) && issign;
 	len = ft_udigit(un);
-	_width = WIDTH_DEFAULT;
-	if (!(flag & FLAG_ZERO))
-		ret += _put_width(flag, width, len, 0);
-	else
-		_width = width;
+	if (precision != PRECISION_DEFAULT && ((int)len < precision || !n))
+	{
+		len = precision;
+	}
+	ret += _put_width(flag, width, len, 0);
 	ret += _put_sign(n, flag);
-	ret += put_type_u(un, flag, _width, precision);
+	ret += put_type_u(un, flag, width, precision);
 	ret += _put_width(flag, width, len, 1);
 	return (ret);
 }

@@ -16,7 +16,5 @@
 
 size_t	put_type_p(void *p, int flag, int width, int precision)
 {
-	if (!p)
-		return (buf_write_stdout("0x0", 3));
-	return (put_type_xl((unsigned long)p, flag | FLAG_HASH, width, precision));
+	return (put_type_xl((unsigned long)p, flag | X_IS_P, width, precision));
 }

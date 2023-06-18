@@ -24,15 +24,14 @@ size_t	put_type_u(UINT n, int flag, int width, int precision)
 	len = ft_udigit(n);
 	if (precision != PRECISION_DEFAULT)
 	{
-		if ((int)len < precision)
+		flag &= ~FLAG_ZERO;
+		if ((int)len < precision || !n)
 			len = precision;
-		else
-			flag &= ~FLAG_ZERO;
 	}
 	ret += _put_width(flag, width, len, 0);
-	if (precision != PRECISION_DEFAULT)
-		ret += put_type_u(n, flag | FLAG_ZERO, precision, PRECISION_DEFAULT);
-	else
+	if (precision && precision != PRECISION_DEFAULT)
+		ret += put_type_u(n, (flag & ~FLAG_MINUS) | FLAG_ZERO, precision, PRECISION_DEFAULT);
+	else if (len)
 		ret += _put_uint(n, len);
 	ret += _put_width(flag, width, len, 1);
 	return (ret);
