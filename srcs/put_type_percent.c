@@ -10,10 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "format.h"
+#include "buf.h"
 #include <stddef.h>
 
 size_t	put_type_percent(void)
 {
-	return (put_type_c('%', FLAG_NONE, WIDTH_DEFAULT));
+	return (buf_write_stdout("%", 1));
 }

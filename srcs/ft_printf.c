@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:40:44 by hshimizu          #+#    #+#             */
-/*   Updated: 2023/06/18 18:06:30 by hshimizu         ###   ########.fr       */
+/*   Updated: 2023/06/20 17:54:52 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,8 @@ int	ft_printf(const char *format, ...)
 
 int	ft_vprintf(const char *format, va_list ap)
 {
-	int			ret;
-	char		*temp;
-	t_specifier	specifier;
+	int		ret;
+	char	*temp;
 
 	ret = 0;
 	while (1)
@@ -40,8 +39,8 @@ int	ft_vprintf(const char *format, va_list ap)
 		if (!temp)
 			break ;
 		ret += buf_write_stdout(format, temp - format);
-		format = temp + pars_specifier(&specifier, temp);
-		ret += put_specifier(&specifier, ap);
+		format = temp;
+		ret += put_specifier(&format, ap);
 	}
 	ret += buf_write_stdout(format, ft_strlen(format));
 	ret += buf_flush_stdout();

@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 23:49:38 by hshimizu          #+#    #+#             */
-/*   Updated: 2023/06/18 19:41:08 by hshimizu         ###   ########.fr       */
+/*   Updated: 2023/06/20 18:11:37 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,5 @@ size_t	buf_write_stdout(const char *str, size_t count)
 		if (g_buf_count >= BUF_SIZE || g_buf[g_buf_count - 1] == '\n')
 			ret += buf_flush_stdout();
 	}
-	ret += buf_flush_stdout();
 	return (ret);
 }
-

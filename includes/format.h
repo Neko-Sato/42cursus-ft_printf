@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 01:26:02 by hshimizu          #+#    #+#             */
-/*   Updated: 2023/06/17 20:57:13 by hshimizu         ###   ########.fr       */
+/*   Updated: 2023/06/20 17:53:55 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ typedef struct s_specifier
 }			t_specifier;
 
 size_t		pars_specifier(t_specifier *specifier, const char *str);
-size_t		put_specifier(t_specifier *specifier, va_list ap);
+size_t		put_specifier(const char **specifier, va_list ap);
 size_t		_put_width(int flag, int width, int len, int after);
 size_t		_put_uint(UINT n, size_t digit);
 size_t		_put_sign(int n, int flag);

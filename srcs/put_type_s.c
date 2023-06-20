@@ -20,14 +20,17 @@ size_t	put_type_s(char *s, int flag, int width, int precision)
 	size_t	ret;
 	size_t	len;
 
-	if (!s)
-		return (put_type_s("(null)", flag, width, precision));
 	ret = 0;
-	len = ft_strlen(s);
-	if (precision != PRECISION_DEFAULT && (int)len > precision)
-		len = precision;
-	ret += _put_width(flag, width, len, 0);
-	ret += buf_write_stdout(s, len);
-	ret += _put_width(flag, width, len, 1);
+	if (s)
+	{
+		len = ft_strlen(s);
+		if (precision != PRECISION_DEFAULT && (int)len > precision)
+			len = precision;
+		ret += _put_width(flag, width, len, 0);
+		ret += buf_write_stdout(s, len);
+		ret += _put_width(flag, width, len, 1);
+	}
+	else if (precision == PRECISION_DEFAULT || 6 <= precision)
+		ret += put_type_s("(null)", flag, width, PRECISION_DEFAULT);
 	return (ret);
 }
