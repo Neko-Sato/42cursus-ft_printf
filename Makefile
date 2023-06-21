@@ -6,7 +6,7 @@
 #    By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/05 16:49:22 by hshimizu          #+#    #+#              #
-#    Updated: 2023/06/22 04:04:52 by hshimizu         ###   ########.fr        #
+#    Updated: 2023/06/22 05:16:53 by hshimizu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,7 +52,7 @@ $(NAME): $(OBJS)
 
 bonus: $(NAME)
 
-objs/%.o: %.c
+$(OBJS_DIR)/%.o: %.c
 	@mkdir -p $(@D)
 	$(CC) -c $(CFLAGS) -I $(INCS_DIR) $< -o $@
 
