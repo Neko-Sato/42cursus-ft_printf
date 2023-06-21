@@ -6,7 +6,7 @@
 #    By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/05 16:49:22 by hshimizu          #+#    #+#              #
-#    Updated: 2023/06/21 17:56:11 by hshimizu         ###   ########.fr        #
+#    Updated: 2023/06/22 04:04:52 by hshimizu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,9 +52,6 @@ $(NAME): $(OBJS)
 
 bonus: $(NAME)
 
-test: test.c $(NAME)
-	$(CC) -g -I $(INCS_DIR) $^ -o $@
-
 objs/%.o: %.c
 	@mkdir -p $(@D)
 	$(CC) -c $(CFLAGS) -I $(INCS_DIR) $< -o $@
@@ -68,3 +65,7 @@ fclean: clean
 	$(RM) $(NAME)
 
 re: fclean all
+
+test: test.c
+	@make
+	$(CC) -g $^ -L./ -I./ -lftprintf -o $@
