@@ -30,7 +30,7 @@ size_t	put_type_s(char *s, int flag, int width, int precision)
 		ret += buf_write_stdout(s, len);
 		ret += _put_width(flag, width, len, 1);
 	}
-	else if (precision == PRECISION_DEFAULT || 6 <= precision)
-		ret += put_type_s("(null)", flag, width, PRECISION_DEFAULT);
+	else
+		ret += put_type_s("(null)", flag, width, precision);
 	return (ret);
 }

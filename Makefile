@@ -6,11 +6,9 @@
 #    By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/05 16:49:22 by hshimizu          #+#    #+#              #
-#    Updated: 2023/06/23 16:44:26 by hshimizu         ###   ########.fr        #
+#    Updated: 2023/06/26 13:16:46 by hshimizu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-
-CFLAGS			= -Wall -Wextra -Werror
 
 NAME			= libftprintf.a
 DIR				= .
@@ -45,7 +43,11 @@ SRCS			= \
 
 OBJS			= $(addprefix $(OBJS_DIR)/, $(SRCS:.c=.o))
 
-.PHONY: all clean fclean re test
+CFLAGS			= -Wall -Wextra -Werror
+
+.PHONY: all clean fclean re test norm
+
+all: $(NAME)
 
 $(NAME): $(OBJS)
 	$(AR) rc $@ $^
@@ -55,8 +57,6 @@ bonus: $(NAME)
 objs/%.o: %.c
 	@mkdir -p $(@D)
 	$(CC) -c $(CFLAGS) -I $(INCS_DIR) $< -o $@
-
-all: $(NAME)
 
 clean:
 	$(RM) -r $(OBJS_DIR)
@@ -69,3 +69,6 @@ re: fclean all
 test: test.c
 	@make
 	$(CC) -g $^ -L./ -I./ -lftprintf -o $@
+
+norm: $(SRCS_DIR) $(INCS_DIR)
+	@norminette $^
