@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 00:47:21 by hshimizu          #+#    #+#             */
-/*   Updated: 2023/06/15 05:19:04 by hshimizu         ###   ########.fr       */
+/*   Updated: 2023/06/26 15:51:05 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,8 @@ static size_t	pars_width(const char *specifier, int *width)
 	else
 	{
 		*width = ft_atou(specifier);
-		ret = ft_udigit(*width);
+		while (ft_isdigit(*specifier))
+			specifier++;
 	}
 	return (ret);
 }
@@ -82,8 +83,8 @@ static size_t	pars_precision(const char *specifier, int *precision)
 	{
 		ret++;
 		*precision = ft_atou(specifier);
-		if (ft_isdigit(*specifier))
-			ret += ft_udigit(*precision);
+		while (ft_isdigit(*specifier))
+			specifier++;
 	}
 	return (ret);
 }
