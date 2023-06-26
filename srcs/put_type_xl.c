@@ -62,9 +62,9 @@ size_t	put_type_xl(unsigned long n, int flag, int width, int precision)
 		if ((int)len < precision || !n)
 			len = precision;
 	}
-	ret += _put_width(flag, width, len, 0);
 	if (isprefix)
 		ret += buf_write_stdout(&"0x0X"[2 * !!(flag & X_LARGE)], 2);
+	ret += _put_width(flag, width, len, 0);
 	if (precision && precision != PRECISION_DEFAULT)
 		ret += put_type_xl(n, (flag & ~FLAG_MINUS) | FLAG_ZERO, precision,
 				PRECISION_DEFAULT);
