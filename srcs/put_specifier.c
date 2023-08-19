@@ -6,12 +6,13 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 18:34:56 by hshimizu          #+#    #+#             */
-/*   Updated: 2023/08/19 23:25:55 by hshimizu         ###   ########.fr       */
+/*   Updated: 2023/08/20 03:20:11 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "buf.h"
 #include "format.h"
+#include "libft.h"
 #include <stdarg.h>
 #include <stddef.h>
 
@@ -66,6 +67,8 @@ static t_value	get_value(t_type type, va_list ap)
 		value.t_uint = va_arg(ap, unsigned int);
 	else if (type == type_X)
 		value.t_uint = va_arg(ap, unsigned int);
+	else
+		ft_bzero(&value, sizeof(value));
 	return (value);
 }
 

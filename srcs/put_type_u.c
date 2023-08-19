@@ -12,7 +12,7 @@
 
 #include "buf.h"
 #include "format.h"
-#include <libft.h>
+#include "libft.h"
 #include <stddef.h>
 
 size_t	put_type_u(unsigned int n, int flag, int width, int precision)

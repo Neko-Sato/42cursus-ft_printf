@@ -6,14 +6,14 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:40:44 by hshimizu          #+#    #+#             */
-/*   Updated: 2023/08/19 23:21:51 by hshimizu         ###   ########.fr       */
+/*   Updated: 2023/08/20 03:19:56 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "buf.h"
 #include "format.h"
 #include "ft_printf.h"
-#include <libft.h>
+#include "libft.h"
 #include <stdarg.h>
 
 int	ft_printf(const char *format, ...)
