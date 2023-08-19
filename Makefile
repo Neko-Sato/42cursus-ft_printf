@@ -6,15 +6,16 @@
 #    By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/05 16:49:22 by hshimizu          #+#    #+#              #
-#    Updated: 2023/06/26 13:16:46 by hshimizu         ###   ########.fr        #
+#    Updated: 2023/08/20 00:22:39 by hshimizu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME			= libftprintf.a
+
 DIR				= .
+FT				= $(DIR)/libft
 INCS_DIR		= $(DIR)/includes
 SRCS_DIR		= $(DIR)/srcs
-UTILS_DIR		= $(DIR)/utils
 OBJS_DIR		= $(DIR)/objs
 
 SRCS			= \
@@ -32,22 +33,24 @@ SRCS			= \
 		put_type_percent.c \
 		put_type_xl.c \
 	) \
-	$(addprefix $(UTILS_DIR)/, \
-		ft_abs.c \
+	$(addprefix $(FT)/, \
 		ft_strchr.c \
 		ft_strlen.c \
-		ft_atou.c \
+		ft_atoi.c \
 		ft_isdigit.c \
-		ft_udigit.c \
-	) \
+		ft_abs.c \
+		ft_digit.c \
+	)
 
 OBJS			= $(addprefix $(OBJS_DIR)/, $(SRCS:.c=.o))
 
 CFLAGS			= -Wall -Wextra -Werror
+IDFLAGS			+= -I$(FT)
+IDFLAGS			+= -I$(INCS_DIR)
 
 .PHONY: all clean fclean re test norm
 
-all: $(NAME)
+all: $(FT) $(NAME)
 
 $(NAME): $(OBJS)
 	$(AR) rc $@ $^
@@ -56,7 +59,7 @@ bonus: $(NAME)
 
 objs/%.o: %.c
 	@mkdir -p $(@D)
-	$(CC) -c $(CFLAGS) -I $(INCS_DIR) $< -o $@
+	$(CC) -c $(CFLAGS) $(LDFLAGS) $(IDFLAGS) $< -o $@ $(LIBS)
 
 clean:
 	$(RM) -r $(OBJS_DIR)
@@ -66,9 +69,14 @@ fclean: clean
 
 re: fclean all
 
-test: test.c
+test: test.c $(name)
 	@make
-	$(CC) -g $^ -L./ -I./ -lftprintf -o $@
+	$(CC) -g $(CFLAGS) -L./ -I./  $< -o $@ -lftprintf
 
 norm: $(SRCS_DIR) $(INCS_DIR)
 	@norminette $^
+
+.PHONY: $(FT)
+$(FT):
+	@git submodule init $@
+	@git submodule update $@

@@ -12,7 +12,6 @@
 
 #include "buf.h"
 #include "format.h"
-#include "utils.h"
 #include <stddef.h>
 
 static size_t	ft_ultohlen(unsigned long n)
@@ -29,9 +28,9 @@ static size_t	ft_ultohlen(unsigned long n)
 
 static size_t	_put_hex(unsigned long n, int large, size_t digit)
 {
-	char	buf[16];
-	size_t	i;
-	UINT	m;
+	char			buf[16];
+	size_t			i;
+	unsigned int	m;
 
 	i = digit;
 	while (1)

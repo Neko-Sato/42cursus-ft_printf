@@ -6,59 +6,67 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 18:34:56 by hshimizu          #+#    #+#             */
-/*   Updated: 2023/06/26 15:19:50 by hshimizu         ###   ########.fr       */
+/*   Updated: 2023/08/19 23:25:55 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "buf.h"
 #include "format.h"
-#include "utils.h"
 #include <stdarg.h>
 #include <stddef.h>
 
-static int	_put_specifier(size_t *ret, t_specifier *s, va_list ap);
+static t_value	get_value(t_type type, va_list ap);
 
-size_t	put_specifier(const char **str, va_list ap)
+size_t	put_specifier(t_specifier *s, va_list ap)
 {
-	size_t		ret;
-	t_specifier	specifier;
-	size_t		specifier_len;
+	size_t	ret;
+	t_value	value;
 
 	ret = 0;
-	specifier_len = pars_specifier(&specifier, *str);
-	if (_put_specifier(&ret, &specifier, ap))
-	{
+	value = get_value(s->type, ap);
+	if (s->type == type_c)
+		ret += put_type_c(value.t_char, s->flag, s->width);
+	else if (s->type == type_s)
+		ret += put_type_s(value.t_str, s->flag, s->width, s->precision);
+	else if (s->type == type_p)
+		ret += put_type_p(value.t_ptr, s->flag, s->width, s->precision);
+	else if (s->type == type_d)
+		ret += put_type_d(value.t_int, s->flag, s->width, s->precision);
+	else if (s->type == type_i)
+		ret += put_type_d(value.t_int, s->flag, s->width, s->precision);
+	else if (s->type == type_u)
+		ret += put_type_u(value.t_uint, s->flag, s->width, s->precision);
+	else if (s->type == type_x)
+		ret += put_type_x(value.t_uint, s->flag, s->width, s->precision);
+	else if (s->type == type_X)
+		ret += put_type_x(value.t_uint, s->flag | X_LARGE, s->width,
+				s->precision);
+	else if (s->type == type_percent || s->type == type_none)
 		ret += put_type_percent();
-		specifier_len = 1;
-	}
-	*str += specifier_len;
 	return (ret);
 }
 
-static int	_put_specifier(size_t *ret, t_specifier *s, va_list ap)
+static t_value	get_value(t_type type, va_list ap)
 {
-	if (s->type == type_c)
-		*ret = put_type_c((char)va_arg(ap, int), s->flag, s->width);
-	else if (s->type == type_s)
-		*ret = put_type_s(va_arg(ap, char *), s->flag, s->width, s->precision);
-	else if (s->type == type_p)
-		*ret = put_type_p(va_arg(ap, void *), s->flag, s->width, s->precision);
-	else if (s->type == type_d)
-		*ret = put_type_d(va_arg(ap, int), s->flag, s->width, s->precision);
-	else if (s->type == type_i)
-		*ret = put_type_d(va_arg(ap, int), s->flag, s->width, s->precision);
-	else if (s->type == type_u)
-		*ret = put_type_u(va_arg(ap, UINT), s->flag, s->width, s->precision);
-	else if (s->type == type_x)
-		*ret = put_type_x(va_arg(ap, UINT), s->flag, s->width, s->precision);
-	else if (s->type == type_X)
-		*ret = put_type_x(va_arg(ap, UINT), s->flag | X_LARGE, s->width,
-				s->precision);
-	else if (s->type == type_percent)
-		*ret = put_type_percent();
-	else
-		return (1);
-	return (0);
+	t_value	value;
+
+	if (type == type_c)
+		value.t_char = (char)va_arg(ap, int);
+	else if (type == type_s)
+		value.t_str = va_arg(ap, char *);
+	else if (type == type_p)
+		value.t_ptr = va_arg(ap, void *);
+	else if (type == type_d)
+		value.t_int = va_arg(ap, int);
+	else if (type == type_i)
+		value.t_int = va_arg(ap, int);
+	else if (type == type_u)
+		value.t_uint = va_arg(ap, unsigned int);
+	else if (type == type_x)
+		value.t_uint = va_arg(ap, unsigned int);
+	else if (type == type_X)
+		value.t_uint = va_arg(ap, unsigned int);
+	return (value);
 }
 
 size_t	_put_width(int flag, int width, int len, int after)
@@ -75,7 +83,7 @@ size_t	_put_width(int flag, int width, int len, int after)
 	return (ret);
 }
 
-size_t	_put_uint(UINT n, size_t digit)
+size_t	_put_uint(unsigned int n, size_t digit)
 {
 	char	buf[10];
 	size_t	i;

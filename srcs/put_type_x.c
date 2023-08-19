@@ -11,10 +11,9 @@
 /* ************************************************************************** */
 
 #include "format.h"
-#include "utils.h"
 #include <stddef.h>
 
-size_t	put_type_x(UINT n, int flag, int width, int precision)
+size_t	put_type_x(unsigned int n, int flag, int width, int precision)
 {
 	return (put_type_xl(n, flag, width, precision));
 }

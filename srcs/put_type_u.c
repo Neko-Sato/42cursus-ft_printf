@@ -12,16 +12,16 @@
 
 #include "buf.h"
 #include "format.h"
-#include "utils.h"
+#include <libft.h>
 #include <stddef.h>
 
-size_t	put_type_u(UINT n, int flag, int width, int precision)
+size_t	put_type_u(unsigned int n, int flag, int width, int precision)
 {
 	size_t	ret;
 	size_t	len;
 
 	ret = 0;
-	len = ft_udigit(n);
+	len = ft_digit(n);
 	if (precision != PRECISION_DEFAULT)
 	{
 		flag &= ~FLAG_ZERO;

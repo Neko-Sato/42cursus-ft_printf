@@ -11,21 +11,21 @@
 /* ************************************************************************** */
 
 #include "format.h"
-#include "utils.h"
+#include <libft.h>
 #include <stddef.h>
 
 size_t	put_type_d(int n, int flag, int width, int precision)
 {
-	size_t	ret;
-	UINT	un;
-	int		exist_precision;
-	int		len;
+	size_t			ret;
+	unsigned int	un;
+	int				exist_precision;
+	int				len;
 
 	ret = 0;
 	un = ft_abs(n);
 	exist_precision = (precision != PRECISION_DEFAULT);
 	width -= (n < 0 || (flag & (FLAG_SPACE | FLAG_PLUS)));
-	len = ft_udigit(un);
+	len = ft_digit(un);
 	if (exist_precision && ((int)len < precision || !n))
 		len = precision;
 	if (flag & FLAG_ZERO && !(exist_precision ^ (width < len)))

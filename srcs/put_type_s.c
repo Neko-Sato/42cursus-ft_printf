@@ -12,7 +12,7 @@
 
 #include "buf.h"
 #include "format.h"
-#include "utils.h"
+#include <libft.h>
 #include <stddef.h>
 
 size_t	put_type_s(char *s, int flag, int width, int precision)
