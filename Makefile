@@ -6,7 +6,7 @@
 #    By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/05 16:49:22 by hshimizu          #+#    #+#              #
-#    Updated: 2023/08/20 00:22:39 by hshimizu         ###   ########.fr        #
+#    Updated: 2023/09/07 19:48:36 by hshimizu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,7 @@ SRCS			= \
 		ft_isdigit.c \
 		ft_abs.c \
 		ft_digit.c \
+		ft_bzero.c \
 	)
 
 OBJS			= $(addprefix $(OBJS_DIR)/, $(SRCS:.c=.o))
