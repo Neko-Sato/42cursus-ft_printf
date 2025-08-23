@@ -1,0 +1,29 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_vprintf.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hshimizu <hshimizu@42tokyo.student.jp>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/23 21:35:05 by hshimizu          #+#    #+#             */
+/*   Updated: 2025/08/23 23:18:17 by hshimizu         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "ft_printf.h"
+#include <unistd.h>
+
+static ssize_t	_write_stdout(const char *buf, size_t len, void *arg)
+{
+	(void)arg;
+	return (write(STDOUT_FILENO, buf, len));
+}
+
+int	ft_vprintf(const char *fmt, va_list ap)
+{
+	t_ostream	os;
+
+	os.write_fn = (ssize_t(*)(const void *, size_t, void *))_write_stdout;
+	os.arg = NULL;
+	return (ft_vfprintf(&os, fmt, ap));
+}
