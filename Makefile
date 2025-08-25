@@ -6,7 +6,7 @@
 #    By: hshimizu <hshimizu@42tokyo.student.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/24 19:05:06 by hshimizu          #+#    #+#              #
-#    Updated: 2025/08/24 02:30:07 by hshimizu         ###   ########.fr        #
+#    Updated: 2025/08/25 15:47:27 by hshimizu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ $(error Unsupported OS: $(UNAME_S))
 endif
 
 SRCS			:= \
+	ft__printf_parse_specifier.c \
 	ft_printf.c \
 	ft_fprintf.c \
 	ft_sprintf.c \
@@ -46,6 +47,9 @@ OBJS			:= $(addprefix $(OUTDIR)/, $(SRCS:.c=.o))
 OBJS_DEV		:= $(addprefix $(OUTDIR)/, $(SRCS:.c=_dev.o))
 DEPS			:= $(addprefix $(OUTDIR)/, $(SRCS:.c=.d))
 DEPS_DEV		:= $(addprefix $(OUTDIR)/, $(SRCS:.c=_dev.d))
+
+LIBFT_A			:= libft/libft.a
+LIBFT_DEV_A		:= libft/libft_dev.a
 
 CC				:= cc
 CFLAGS			:= -Wall -Wextra -Werror -std=c99 -pedantic
@@ -76,16 +80,16 @@ endif
 bonus: all
 
 $(NAME_A): CFLAGS += $(CFLAGS_OPT)
-$(NAME_A): $(OBJS) | libft/libft.a
-	cp -f $| $@
+$(NAME_A): $(OBJS) $(LIBFT_A)
+	cp -f $(LIBFT_A) $@
 	$(AR) $(ARFLAGS) $@ $^
 
 $(NAME_SO): CFLAGS += $(CFLAGS_OPT)
-$(NAME_SO): $(OBJS) | libft/libft.a
+$(NAME_SO): $(OBJS) $(LIBFT_A)
 ifeq ($(UNAME_S),Linux)
-	$(CC) $(CFLAGS) $(LDFLAGS) -shared -o $@ $^ $| $(LIBS)
+	$(CC) $(CFLAGS) $(LDFLAGS) -shared -o $@ $^ $(LIBS)
 else ifeq ($(UNAME_S),Darwin)
-	$(CC) $(CFLAGS) $(LDFLAGS) -dynamiclib -o $@ $^ $| $(LIBS) -install_name @rpath/$@
+	$(CC) $(CFLAGS) $(LDFLAGS) -dynamiclib -o $@ $^ $(LIBS) -install_name @rpath/$@
 endif
 
 $(OUTDIR)/%.o: %.c
@@ -93,24 +97,27 @@ $(OUTDIR)/%.o: %.c
 	$(CC) $(CFLAGS) $(IDFLAGS) -c $< -o $@
 
 $(NAME_DEV_A): CFLAGS += $(CFLAGS_DEV)
-$(NAME_DEV_A): $(OBJS_DEV) | libft/libft_dev.a
-	cp -f $| $@ 
+$(NAME_DEV_A): $(OBJS_DEV) ${LIBFT_DEV_A}
+	cp -f $(LIBFT_DEV_A) $@ 
 	$(AR) $(ARFLAGS) $@ $^
 
 $(NAME_DEV_SO): CFLAGS += $(CFLAGS_DEV)
-$(NAME_DEV_SO): $(OBJS_DEV) | libft/libft_dev.a
+$(NAME_DEV_SO): $(OBJS_DEV) ${LIBFT_DEV_A}
 ifeq ($(UNAME_S),Linux)
-	$(CC) $(CFLAGS) $(LDFLAGS) -shared -o $@ $^ $| $(LIBS_DEV)
+	$(CC) $(CFLAGS) $(LDFLAGS) -shared -o $@ $^ $(LIBS_DEV)
 else ifeq ($(UNAME_S),Darwin)
-	$(CC) $(CFLAGS) $(LDFLAGS) -dynamiclib -o $@ $^ $| $(LIBS_DEV) -install_name @rpath/$@
+	$(CC) $(CFLAGS) $(LDFLAGS) -dynamiclib -o $@ $^ $(LIBS_DEV) -install_name @rpath/$@
 endif
 
 $(OUTDIR)/%_dev.o: %.c
 	@mkdir -p $(@D)
 	$(CC) $(CFLAGS) $(IDFLAGS) -c $< -o $@
 
-libft/%:
-	@$(MAKE) -C $(@D) $(@F)
+$(LIBFT_A):
+	@$(MAKE) -C libft libft.a
+
+$(LIBFT_DEV_A):
+	@$(MAKE) -C libft libft_dev.a
 
 clean:
 	@$(MAKE) -C libft fclean

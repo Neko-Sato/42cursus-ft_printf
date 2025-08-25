@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@42tokyo.student.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 21:21:02 by hshimizu          #+#    #+#             */
-/*   Updated: 2025/08/23 23:13:05 by hshimizu         ###   ########.fr       */
+/*   Updated: 2025/08/25 16:04:52 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,29 @@ typedef struct s__printf_specifier
 	int		precision;
 	int		type;
 }			t__printf_specifier;
+
+const char	*ft__printf_parse_specifier(const char *str,
+				t__printf_specifier *spec);
+
+typedef struct s__printf_handler_entry
+{
+	int		type;
+	ssize_t	(*handler)(t_ostream *, const t__printf_specifier *, va_list);
+}			t__printf_handler_entry;
+
+ssize_t		ft__printf_handle_char(t_ostream *os,
+				const t__printf_specifier *spec, va_list ap);
+ssize_t		ft__printf_handle_string(t_ostream *os,
+				const t__printf_specifier *spec, va_list ap);
+ssize_t		ft__printf_handle_pointer(t_ostream *os,
+				const t__printf_specifier *spec, va_list ap);
+ssize_t		ft__printf_handle_signed_decimal(t_ostream *os,
+				const t__printf_specifier *spec, va_list ap);
+ssize_t		ft__printf_handle_unsigned_decimal(t_ostream *os,
+				const t__printf_specifier *spec, va_list ap);
+ssize_t		ft__printf_handle_hexadecimal(t_ostream *os,
+				const t__printf_specifier *spec, va_list ap);
+ssize_t		ft__printf_handle_percent(t_ostream *os,
+				const t__printf_specifier *spec, va_list ap);
 
 #endif
