@@ -6,12 +6,12 @@
 /*   By: hshimizu <hshimizu@42tokyo.student.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 21:58:14 by hshimizu          #+#    #+#             */
-/*   Updated: 2025/08/23 23:18:08 by hshimizu         ###   ########.fr       */
+/*   Updated: 2025/09/02 09:59:47 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
-#include <libft.h>
+#include <ft_printf.h>
+#include <stdlib.h>
 
 int	ft_vasprintf(char **strptr, const char *fmt, va_list ap)
 {

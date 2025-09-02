@@ -6,11 +6,11 @@
 /*   By: hshimizu <hshimizu@42tokyo.student.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 23:01:33 by hshimizu          #+#    #+#             */
-/*   Updated: 2025/08/25 16:08:36 by hshimizu         ###   ########.fr       */
+/*   Updated: 2025/09/02 10:02:11 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include <ft_printf.h>
 #include <libft.h>
 
 static const t__printf_handler_entry	g__handler_entry[] = {
@@ -46,13 +46,13 @@ static inline ssize_t	_internal(t_ostream *os, const char **fmt, va_list ap)
 		}
 		i++;
 	}
-	return (os->write_fn("%", 1, os->arg));
+	return (os->_write_fn("%", 1, os->_arg));
 }
 
 int	ft_vfprintf(t_ostream *os, const char *fmt, va_list ap)
 {
+	size_t	ret;
 	ssize_t	tmp;
-	int		ret;
 	char	*find;
 
 	ret = 0;
@@ -61,7 +61,7 @@ int	ft_vfprintf(t_ostream *os, const char *fmt, va_list ap)
 		find = ft_strchr(fmt, '%');
 		if (!find)
 			break ;
-		tmp = os->write_fn(fmt, find - fmt, os->arg);
+		tmp = os->_write_fn(fmt, find - fmt, os->_arg);
 		if (tmp < 0)
 			return (-1);
 		ret += tmp;
@@ -70,7 +70,7 @@ int	ft_vfprintf(t_ostream *os, const char *fmt, va_list ap)
 		if (tmp < 0)
 			return (-1);
 	}
-	tmp = os->write_fn(fmt, ft_strlen(fmt), os->arg);
+	tmp = os->_write_fn(fmt, ft_strlen(fmt), os->_arg);
 	if (tmp < 0)
 		return (-1);
 	ret += tmp;

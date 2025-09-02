@@ -6,11 +6,11 @@
 /*   By: hshimizu <hshimizu@42tokyo.student.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 14:47:50 by hshimizu          #+#    #+#             */
-/*   Updated: 2025/08/25 16:04:43 by hshimizu         ###   ########.fr       */
+/*   Updated: 2025/08/26 02:27:21 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include <ft_printf.h>
 #include <libft.h>
 
 static inline const char	*_parse_flag(const char *str, int *flag)
@@ -44,6 +44,23 @@ static inline const char	*_parse_width_precision(const char *str,
 		*width_precision = -1;
 	else
 		*width_precision = ft_strtol(str, (char **)&str, 10);
+	return (str);
+}
+
+static inline const char	*_parse_rank(const char *str, int *rank)
+{
+	size_t				i;
+
+	*rank = 0;
+	while (*str)
+	{
+		if (*str == 'h')
+			(*rank)--;
+		else if (*str == 'l')
+			(*rank)++;
+		else
+			break ;
+	}
 	return (str);
 }
 

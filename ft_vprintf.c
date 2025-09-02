@@ -6,24 +6,29 @@
 /*   By: hshimizu <hshimizu@42tokyo.student.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 21:35:05 by hshimizu          #+#    #+#             */
-/*   Updated: 2025/08/23 23:18:17 by hshimizu         ###   ########.fr       */
+/*   Updated: 2025/09/02 10:01:02 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include <ft_printf.h>
 #include <unistd.h>
-
-static ssize_t	_write_stdout(const char *buf, size_t len, void *arg)
-{
-	(void)arg;
-	return (write(STDOUT_FILENO, buf, len));
-}
 
 int	ft_vprintf(const char *fmt, va_list ap)
 {
+	int			fd;
+	int			ret;
 	t_ostream	os;
+	char		buf[1024];
 
-	os.write_fn = (ssize_t(*)(const void *, size_t, void *))_write_stdout;
-	os.arg = NULL;
-	return (ft_vfprintf(&os, fmt, ap));
+	fd = STDOUT_FILENO;
+	os._write_fn = (ssize_t(*)(const void *, size_t, void *))ft__write_fd;
+	os._arg = &fd;
+	os._flags = 0;
+	os._lbf = OSTREAM_LINEBUF;
+	os._buf = buf;
+	os._pos = buf;
+	os._end = buf + sizeof(buf);
+	ret = ft_vfprintf(&os, fmt, ap);
+	ft_ostream_flush(&os);
+	return (ret);
 }

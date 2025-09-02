@@ -6,11 +6,11 @@
 /*   By: hshimizu <hshimizu@42tokyo.student.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 22:58:47 by hshimizu          #+#    #+#             */
-/*   Updated: 2025/08/23 22:58:56 by hshimizu         ###   ########.fr       */
+/*   Updated: 2025/08/25 23:11:37 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include <ft_printf.h>
 
 int	ft_snprintf(char *str, size_t size, const char *fmt, ...)
 {
