@@ -6,73 +6,88 @@
 /*   By: hshimizu <hshimizu@42tokyo.student.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 23:01:33 by hshimizu          #+#    #+#             */
-/*   Updated: 2025/09/02 10:02:11 by hshimizu         ###   ########.fr       */
+/*   Updated: 2025/09/07 15:57:40 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ft_printf.h>
 #include <libft.h>
 
-static const t__printf_handler_entry	g__handler_entry[] = {
-{'c', ft__printf_handle_char},
-{'s', ft__printf_handle_string},
-{'p', ft__printf_handle_pointer},
-{'d', ft__printf_handle_signed_decimal},
-{'i', ft__printf_handle_signed_decimal},
-{'u', ft__printf_handle_unsigned_decimal},
-{'x', ft__printf_handle_hexadecimal},
-{'X', ft__printf_handle_hexadecimal},
-{'%', ft__printf_handle_percent}
+static const t__printf_handler	g_handler[] = {
+['c'] = ft__printf_handler_char,
+['s'] = ft__printf_handler_string,
+['p'] = ft__printf_handler_pointer,
+['d'] = ft__printf_handler_signed,
+['i'] = ft__printf_handler_signed,
+['u'] = ft__printf_handler_unsigned,
+['x'] = ft__printf_handler_hexadecimal_lower,
+['X'] = ft__printf_handler_hexadecimal_upper,
+['o'] = ft__printf_handler_octal,
+['%'] = ft__printf_handler_percent
 };
 
-static const size_t						g__handler_entry_size
-	= sizeof(g__handler_entry) / sizeof(g__handler_entry[0]);
+static const size_t				g_handler_size
+	= sizeof(g_handler) / sizeof(g_handler[0]);
 
-static inline ssize_t	_internal(t_ostream *os, const char **fmt, va_list ap)
+static inline size_t	_internal(t_ostream *os, const char **fmt,
+		t__va_list_ref ap)
 {
+	size_t				ret;
+	const char			*tmp;
 	t__printf_specifier	spec;
-	const char			*str;
-	size_t				i;
+	t__printf_handler	handler;
 
-	str = *fmt;
-	str = ft__printf_parse_specifier(str, &spec);
-	i = 0;
-	while (i < g__handler_entry_size)
-	{
-		if (g__handler_entry[i].type == spec.type)
-		{
-			*fmt = str;
-			return (g__handler_entry[i].handler(os, &spec, ap));
-		}
-		i++;
-	}
-	return (os->_write_fn("%", 1, os->_arg));
+	tmp = *fmt + 1;
+	tmp = ft__printf_parse_specifier(tmp, &spec);
+	if (0 <= *tmp && (size_t)(*tmp) <= g_handler_size)
+		handler = g_handler[(unsigned char)*tmp];
+	else
+		handler = NULL;
+	if (handler)
+		ret = handler(os, &spec, ap);
+	else
+		ret = ft_ostream_write(os, *fmt, tmp - *fmt);
+	*fmt = ++tmp;
+	return (ret);
 }
 
-int	ft_vfprintf(t_ostream *os, const char *fmt, va_list ap)
+static inline int	_core(t_ostream *os, const char *fmt, t__va_list_ref ap)
 {
 	size_t	ret;
-	ssize_t	tmp;
 	char	*find;
 
+	if (ft_ostream_error(os))
+		return (-1);
 	ret = 0;
 	while (1)
 	{
 		find = ft_strchr(fmt, '%');
 		if (!find)
 			break ;
-		tmp = os->_write_fn(fmt, find - fmt, os->_arg);
-		if (tmp < 0)
+		ret += ft_ostream_write(os, fmt, find - fmt);
+		if (ft_ostream_error(os))
 			return (-1);
-		ret += tmp;
-		fmt = ++find;
-		tmp = _internal(os, &fmt, ap);
-		if (tmp < 0)
+		fmt = find;
+		ret += _internal(os, &fmt, ap);
+		if (ft_ostream_error(os))
 			return (-1);
 	}
-	tmp = os->_write_fn(fmt, ft_strlen(fmt), os->_arg);
-	if (tmp < 0)
+	ret += ft_ostream_write(os, fmt, ft_strlen(fmt));
+	if (ft_ostream_error(os))
 		return (-1);
-	ret += tmp;
 	return (ret);
 }
+
+#if defined(__APPLE__)
+
+int	ft_vfprintf(t_ostream *os, const char *fmt, va_list ap)
+{
+	return (_core(os, fmt, &ap));
+}
+#else
+
+int	ft_vfprintf(t_ostream *os, const char *fmt, va_list ap)
+{
+	return (_core(os, fmt, ap));
+}
+#endif

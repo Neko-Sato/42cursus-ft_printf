@@ -6,17 +6,20 @@
 /*   By: hshimizu <hshimizu@42tokyo.student.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 14:47:50 by hshimizu          #+#    #+#             */
-/*   Updated: 2025/08/26 02:27:21 by hshimizu         ###   ########.fr       */
+/*   Updated: 2025/09/07 13:53:24 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ft_printf.h>
-#include <libft.h>
+#include <ft_string/ft_string.h>
+#include <ft_stdlib/ft_stdlib.h>
+#include <ft_ctype/ft_ctype.h>
+#include <limits.h>
 
-static inline const char	*_parse_flag(const char *str, int *flag)
+static inline const char	*_parse_flags(const char *str, int *flags)
 {
-	static char const	flags[] = "-0# +";
-	static int const	flag_values[] = {
+	static char const	marks[] = "-0# +";
+	static int const	values[] = {
 		_PRINTF_FLAG_MINUS,
 		_PRINTF_FLAG_ZERO,
 		_PRINTF_FLAG_HASH,
@@ -25,32 +28,56 @@ static inline const char	*_parse_flag(const char *str, int *flag)
 	};
 	const char			*tmp;
 
-	*flag = 0;
+	*flags = 0;
 	while (1)
 	{
-		tmp = ft_memchr(flags, *str, sizeof(flags) - 1);
+		tmp = ft_memchr(marks, *str, sizeof(marks) - 1);
 		if (!tmp)
 			break ;
-		*flag |= flag_values[tmp - flags];
+		*flags |= values[tmp - marks];
 		str++;
 	}
 	return (str);
 }
 
-static inline const char	*_parse_width_precision(const char *str,
-		int *width_precision)
+static inline const char	*_parse_width(const char *str, int *width)
 {
+	long	tmp;
+
 	if (!ft_isdigit(*str))
-		*width_precision = -1;
+		tmp = -1;
 	else
-		*width_precision = ft_strtol(str, (char **)&str, 10);
+	{
+		tmp = ft_strtol(str, (char **)&str, 10);
+		if (INT_MAX < tmp)
+			tmp = INT_MAX;
+	}
+	*width = tmp;
+	return (str);
+}
+
+static inline const char	*_parse_precision(const char *str, int *precision)
+{
+	long	tmp;
+
+	if (*str != '.')
+		tmp = -1;
+	else
+	{
+		str++;
+		if (!ft_isdigit(*str))
+			tmp = 0;
+		else
+			tmp = ft_strtol(str, (char **)&str, 10);
+		if (INT_MAX < tmp)
+			tmp = INT_MAX;
+	}
+	*precision = tmp;
 	return (str);
 }
 
 static inline const char	*_parse_rank(const char *str, int *rank)
 {
-	size_t				i;
-
 	*rank = 0;
 	while (*str)
 	{
@@ -60,25 +87,18 @@ static inline const char	*_parse_rank(const char *str, int *rank)
 			(*rank)++;
 		else
 			break ;
+		str++;
 	}
 	return (str);
 }
 
-static inline const char	*_parse_type(const char *str, int *type)
-{
-	if (*str)
-		*type = *str++;
-	else
-		*type = -1;
-	return (str);
-}
-
-//	%[flags][width][.precision]type
+//	[flags][width][.precision]
 const char	*ft__printf_parse_specifier(const char *str,
 		t__printf_specifier *spec)
 {
-	str = _parse_flag(str, &spec->flag);
-	str = _parse_width_precision(str, &spec->width);
-	str = _parse_width_precision(str, &spec->precision);
+	str = _parse_flags(str, &spec->flags);
+	str = _parse_width(str, &spec->width);
+	str = _parse_precision(str, &spec->precision);
+	str = _parse_rank(str, &spec->rank);
 	return (str);
 }
