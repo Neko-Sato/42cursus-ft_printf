@@ -6,7 +6,7 @@
 #    By: hshimizu <hshimizu@42tokyo.student.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/24 19:05:06 by hshimizu          #+#    #+#              #
-#    Updated: 2025/09/07 16:57:14 by hshimizu         ###   ########.fr        #
+#    Updated: 2025/09/08 03:37:05 by hshimizu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,9 +55,6 @@ OBJS			:= $(addprefix $(OUTDIR)/, $(SRCS:.c=.o))
 OBJS_DEV		:= $(addprefix $(OUTDIR)/, $(SRCS:.c=_dev.o))
 DEPS			:= $(addprefix $(OUTDIR)/, $(SRCS:.c=.d))
 DEPS_DEV		:= $(addprefix $(OUTDIR)/, $(SRCS:.c=_dev.d))
-
-LIBFT_A			:= libft/libft.a
-LIBFT_DEV_A		:= libft/libft_dev.a
 
 CC				:= cc
 CFLAGS			:= -Wall -Wextra -Werror -std=c99 -pedantic
