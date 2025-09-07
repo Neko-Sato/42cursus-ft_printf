@@ -1,42 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_vargs_0_mac.c                                   :+:      :+:    :+:   */
+/*   ft_varg_1.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hshimizu <hshimizu@42tokyo.student.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/07 15:36:52 by hshimizu          #+#    #+#             */
-/*   Updated: 2025/09/07 15:48:47 by hshimizu         ###   ########.fr       */
+/*   Updated: 2025/09/07 16:01:46 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ft_vargs.h>
+#include <ft_varg.h>
 
-#if defined(__APPLE__)
+#if !defined(__APPLE__)
 
-signed int	ft__va_arg_signed_int(t__va_list_ref ap)
+unsigned long long	ft__va_arg_unsigned_long_long(t__va_list_ref ap)
 {
-	return (va_arg(*ap, signed int));
+	return (va_arg(ap, unsigned long long));
 }
 
-signed long	ft__va_arg_signed_long(t__va_list_ref ap)
+void	*ft__va_arg_pointer(t__va_list_ref ap)
 {
-	return (va_arg(*ap, signed long));
+	return (va_arg(ap, void *));
 }
 
-signed long long	ft__va_arg_signed_long_long(t__va_list_ref ap)
+char	*ft__va_arg_string(t__va_list_ref ap)
 {
-	return (va_arg(*ap, signed long long));
-}
-
-unsigned int	ft__va_arg_unsigned_int(t__va_list_ref ap)
-{
-	return (va_arg(*ap, unsigned int));
-}
-
-unsigned long	ft__va_arg_unsigned_long(t__va_list_ref ap)
-{
-	return (va_arg(*ap, unsigned long));
+	return (va_arg(ap, char *));
 }
 
 #endif

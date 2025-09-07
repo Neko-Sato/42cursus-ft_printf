@@ -6,7 +6,7 @@
 #    By: hshimizu <hshimizu@42tokyo.student.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/24 19:05:06 by hshimizu          #+#    #+#              #
-#    Updated: 2025/09/07 15:50:10 by hshimizu         ###   ########.fr        #
+#    Updated: 2025/09/07 16:02:08 by hshimizu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,10 +33,10 @@ SRCS			:= \
 	ft__printf_handlers_1.c \
 	ft__printf_handlers_2.c \
 	ft__printf_parse_specifier.c \
-	ft_vargs_0.c \
-	ft_vargs_1.c \
-	ft_vargs_0_mac.c \
-	ft_vargs_1_mac.c \
+	ft_varg_0.c \
+	ft_varg_1.c \
+	ft_varg_0_apple.c \
+	ft_varg_1_apple.c \
 	ft_asprintf.c \
 	ft_dprintf.c \
 	ft_fprintf.c \
