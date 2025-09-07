@@ -6,7 +6,7 @@
 #    By: hshimizu <hshimizu@42tokyo.student.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/24 19:05:06 by hshimizu          #+#    #+#              #
-#    Updated: 2025/08/25 15:47:27 by hshimizu         ###   ########.fr        #
+#    Updated: 2025/09/07 15:50:10 by hshimizu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,19 +28,27 @@ $(error Unsupported OS: $(UNAME_S))
 endif
 
 SRCS			:= \
+	ft__printf.c \
+	ft__printf_handlers_0.c \
+	ft__printf_handlers_1.c \
+	ft__printf_handlers_2.c \
 	ft__printf_parse_specifier.c \
-	ft_printf.c \
-	ft_fprintf.c \
-	ft_sprintf.c \
-	ft_snprintf.c \
+	ft_vargs_0.c \
+	ft_vargs_1.c \
+	ft_vargs_0_mac.c \
+	ft_vargs_1_mac.c \
 	ft_asprintf.c \
 	ft_dprintf.c \
-	ft_vprintf.c \
-	ft_vfprintf.c \
-	ft_vsprintf.c \
-	ft_vsnprintf.c \
+	ft_fprintf.c \
+	ft_printf.c \
+	ft_snprintf.c \
+	ft_sprintf.c \
 	ft_vasprintf.c \
-	ft_vdprintf.c
+	ft_vdprintf.c \
+	ft_vfprintf.c \
+	ft_vprintf.c \
+	ft_vsnprintf.c \
+	ft_vsprintf.c
 
 OUTDIR			:= .out
 OBJS			:= $(addprefix $(OUTDIR)/, $(SRCS:.c=.o))
@@ -80,7 +88,7 @@ endif
 bonus: all
 
 $(NAME_A): CFLAGS += $(CFLAGS_OPT)
-$(NAME_A): $(OBJS) $(LIBFT_A)
+$(NAME_A): $(OBJS) | $(LIBFT_A)
 	cp -f $(LIBFT_A) $@
 	$(AR) $(ARFLAGS) $@ $^
 
@@ -97,12 +105,12 @@ $(OUTDIR)/%.o: %.c
 	$(CC) $(CFLAGS) $(IDFLAGS) -c $< -o $@
 
 $(NAME_DEV_A): CFLAGS += $(CFLAGS_DEV)
-$(NAME_DEV_A): $(OBJS_DEV) ${LIBFT_DEV_A}
-	cp -f $(LIBFT_DEV_A) $@ 
+$(NAME_DEV_A): $(OBJS_DEV) | $(LIBFT_DEV_A)
+	cp -f $(LIBFT_DEV_A) $@
 	$(AR) $(ARFLAGS) $@ $^
 
 $(NAME_DEV_SO): CFLAGS += $(CFLAGS_DEV)
-$(NAME_DEV_SO): $(OBJS_DEV) ${LIBFT_DEV_A}
+$(NAME_DEV_SO): $(OBJS_DEV) $(LIBFT_DEV_A)
 ifeq ($(UNAME_S),Linux)
 	$(CC) $(CFLAGS) $(LDFLAGS) -shared -o $@ $^ $(LIBS_DEV)
 else ifeq ($(UNAME_S),Darwin)
@@ -131,6 +139,6 @@ re:
 	@$(MAKE)
 
 test: test.c $(NAME_DEV_A)
-	$(CC) $(CFLAGS_DEV) -o $@ $< -I. -L. -lft_dev
+	$(CC) $(CFLAGS_DEV) -o $@ $^ $(IDFLAGS)
 
 -include $(DEPS) $(DEPS_DEV)
