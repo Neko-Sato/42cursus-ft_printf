@@ -6,7 +6,7 @@
 #    By: hshimizu <hshimizu@42tokyo.student.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/24 19:05:06 by hshimizu          #+#    #+#              #
-#    Updated: 2025/09/07 16:09:09 by hshimizu         ###   ########.fr        #
+#    Updated: 2025/09/07 16:50:22 by hshimizu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,15 +28,15 @@ $(error Unsupported OS: $(UNAME_S))
 endif
 
 SRCS			:= \
-	ft__printf.c \
+	ft__printf_imple.c \
 	ft__printf_handlers_0.c \
 	ft__printf_handlers_1.c \
 	ft__printf_handlers_2.c \
 	ft__printf_parse_specifier.c \
-	ft_varg_0.c \
-	ft_varg_1.c \
-	ft_varg_0_ref.c \
-	ft_varg_1_ref.c \
+	ft__printf_varg_0.c \
+	ft__printf_varg_1.c \
+	ft__printf_varg_0_ref.c \
+	ft__printf_varg_1_ref.c \
 	ft_asprintf.c \
 	ft_dprintf.c \
 	ft_fprintf.c \

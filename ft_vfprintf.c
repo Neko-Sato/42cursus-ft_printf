@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@42tokyo.student.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 23:01:33 by hshimizu          #+#    #+#             */
-/*   Updated: 2025/09/07 15:57:40 by hshimizu         ###   ########.fr       */
+/*   Updated: 2025/09/07 16:48:14 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static const size_t				g_handler_size
 	= sizeof(g_handler) / sizeof(g_handler[0]);
 
 static inline size_t	_internal(t_ostream *os, const char **fmt,
-		t__va_list_ref ap)
+		t__printf_va_list_ref ap)
 {
 	size_t				ret;
 	const char			*tmp;
@@ -51,7 +51,8 @@ static inline size_t	_internal(t_ostream *os, const char **fmt,
 	return (ret);
 }
 
-static inline int	_core(t_ostream *os, const char *fmt, t__va_list_ref ap)
+static inline int	_core(t_ostream *os, const char *fmt,
+	t__printf_va_list_ref ap)
 {
 	size_t	ret;
 	char	*find;

@@ -1,42 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_varg_0_ref.c                                    :+:      :+:    :+:   */
+/*   ft__printf_varg_1_ref.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hshimizu <hshimizu@42tokyo.student.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/07 15:36:52 by hshimizu          #+#    #+#             */
-/*   Updated: 2025/09/07 16:10:43 by hshimizu         ###   ########.fr       */
+/*   Updated: 2025/09/07 16:46:41 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ft_varg.h>
+#include <ft_printf.h>
 
 #if _VARG_REF == 1
 
-signed int	ft__va_arg_signed_int(t__va_list_ref ap)
+unsigned long long	ft__printf_va_arg_unsigned_long_long(
+	t__printf_va_list_ref ap)
 {
-	return (va_arg(*ap, signed int));
+	return (va_arg(*ap, unsigned long long));
 }
 
-signed long	ft__va_arg_signed_long(t__va_list_ref ap)
+void	*ft__printf_va_arg_pointer(t__printf_va_list_ref ap)
 {
-	return (va_arg(*ap, signed long));
+	return (va_arg(*ap, void *));
 }
 
-signed long long	ft__va_arg_signed_long_long(t__va_list_ref ap)
+char	*ft__printf_va_arg_string(t__printf_va_list_ref ap)
 {
-	return (va_arg(*ap, signed long long));
-}
-
-unsigned int	ft__va_arg_unsigned_int(t__va_list_ref ap)
-{
-	return (va_arg(*ap, unsigned int));
-}
-
-unsigned long	ft__va_arg_unsigned_long(t__va_list_ref ap)
-{
-	return (va_arg(*ap, unsigned long));
+	return (va_arg(*ap, char *));
 }
 
 #endif

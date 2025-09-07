@@ -1,32 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_varg_1_apple.c                                  :+:      :+:    :+:   */
+/*   ft__printf_varg_1.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hshimizu <hshimizu@42tokyo.student.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/07 15:36:52 by hshimizu          #+#    #+#             */
-/*   Updated: 2025/09/07 16:06:23 by hshimizu         ###   ########.fr       */
+/*   Updated: 2025/09/07 16:46:49 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ft_varg.h>
+#include <ft_printf.h>
 
-#if _VARG_REF == 1
+#if _VARG_REF == 0
 
-unsigned long long	ft__va_arg_unsigned_long_long(t__va_list_ref ap)
+unsigned long long	ft__printf_va_arg_unsigned_long_long(
+	t__printf_va_list_ref ap)
 {
-	return (va_arg(*ap, unsigned long long));
+	return (va_arg(ap, unsigned long long));
 }
 
-void	*ft__va_arg_pointer(t__va_list_ref ap)
+void	*ft__printf_va_arg_pointer(t__printf_va_list_ref ap)
 {
-	return (va_arg(*ap, void *));
+	return (va_arg(ap, void *));
 }
 
-char	*ft__va_arg_string(t__va_list_ref ap)
+char	*ft__printf_va_arg_string(t__printf_va_list_ref ap)
 {
-	return (va_arg(*ap, char *));
+	return (va_arg(ap, char *));
 }
 
 #endif

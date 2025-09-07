@@ -6,31 +6,32 @@
 /*   By: hshimizu <hshimizu@42tokyo.student.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 10:13:54 by hshimizu          #+#    #+#             */
-/*   Updated: 2025/09/07 15:42:23 by hshimizu         ###   ########.fr       */
+/*   Updated: 2025/09/07 16:45:24 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ft_printf.h>
 
-static long long	_value(const t__printf_specifier *spec, t__va_list_ref ap)
+static long long	_value(const t__printf_specifier *spec,
+		t__printf_va_list_ref ap)
 {
-	long long			n;
+	long long	n;
 
 	if (spec->rank <= -2)
-		n = (signed char)ft__va_arg_signed_int(ap);
+		n = (signed char)ft__printf_va_arg_signed_int(ap);
 	else if (spec->rank == -1)
-		n = (signed short)ft__va_arg_signed_int(ap);
+		n = (signed short)ft__printf_va_arg_signed_int(ap);
 	else if (spec->rank == 0)
-		n = ft__va_arg_signed_int(ap);
+		n = ft__printf_va_arg_signed_int(ap);
 	else if (spec->rank == 1)
-		n = ft__va_arg_signed_long(ap);
+		n = ft__printf_va_arg_signed_long(ap);
 	else
-		n = ft__va_arg_signed_long_long(ap);
+		n = ft__printf_va_arg_signed_long_long(ap);
 	return (n);
 }
 
 size_t	ft__printf_handler_signed(t_ostream *os,
-		const t__printf_specifier *spec, t__va_list_ref ap)
+		const t__printf_specifier *spec, t__printf_va_list_ref ap)
 {
 	t__iniprint_args	args;
 
