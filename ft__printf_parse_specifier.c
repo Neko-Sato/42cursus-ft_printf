@@ -6,14 +6,14 @@
 /*   By: hshimizu <hshimizu@42tokyo.student.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 14:47:50 by hshimizu          #+#    #+#             */
-/*   Updated: 2025/09/07 13:53:24 by hshimizu         ###   ########.fr       */
+/*   Updated: 2025/09/08 06:13:14 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ft_printf.h>
-#include <ft_string/ft_string.h>
-#include <ft_stdlib/ft_stdlib.h>
 #include <ft_ctype/ft_ctype.h>
+#include <ft_printf.h>
+#include <ft_stdlib/ft_stdlib.h>
+#include <ft_string/ft_string.h>
 #include <limits.h>
 
 static inline const char	*_parse_flags(const char *str, int *flags)

@@ -6,31 +6,31 @@
 /*   By: hshimizu <hshimizu@42tokyo.student.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 10:13:54 by hshimizu          #+#    #+#             */
-/*   Updated: 2025/09/07 16:44:38 by hshimizu         ###   ########.fr       */
+/*   Updated: 2025/09/08 06:10:30 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ft_printf.h>
 
 size_t	ft__printf_handler_char(t_ostream *os, const t__printf_specifier *spec,
-		t__printf_va_list_ref ap)
+		va_list *ap)
 {
-	return (ft__printf_char(os, spec, (char)ft__printf_va_arg_signed_int(ap)));
+	return (ft__printf_char(os, spec, (char)va_arg(*ap, int)));
 }
 
 size_t	ft__printf_handler_percent(t_ostream *os,
-		const t__printf_specifier *spec, t__printf_va_list_ref ap)
+		const t__printf_specifier *spec, va_list *ap)
 {
 	(void)ap;
 	return (ft__printf_char(os, spec, '%'));
 }
 
 size_t	ft__printf_handler_string(t_ostream *os,
-		const t__printf_specifier *spec, t__printf_va_list_ref ap)
+		const t__printf_specifier *spec, va_list *ap)
 {
 	const char	*s;
 
-	s = ft__printf_va_arg_string(ap);
+	s = va_arg(*ap, const char *);
 	if (!s)
 	{
 		if ((spec->precision == -1 || 5 < spec->precision))
@@ -42,26 +42,26 @@ size_t	ft__printf_handler_string(t_ostream *os,
 }
 
 size_t	ft__printf_handler_pointer(t_ostream *os,
-		const t__printf_specifier *spec, t__printf_va_list_ref ap)
+		const t__printf_specifier *spec, va_list *ap)
 {
 	void				*p;
 	t__iniprint_args	args;
 
-	p = ft__printf_va_arg_pointer(ap);
+	p = va_arg(*ap, void *);
 	if (!p)
 		return (ft__printf_str(os, spec, "(nil)"));
 	args.base = 16;
 	args.flags = _INTPRINT_FLAG_ALT_FORM;
-	args.flags |= _INTPRINT_FLAG_LEFT_ADJ
-		& -!!(spec->flags & _PRINTF_FLAG_MINUS);
-	args.flags |= _INTPRINT_FLAG_ZERO_PAD
-		& -!!(spec->flags & _PRINTF_FLAG_ZERO);
-	args.flags |= _INTPRINT_FLAG_ALT_FORM
-		& -!!(spec->flags & _PRINTF_FLAG_HASH);
-	args.flags |= _INTPRINT_FLAG_PAD_POS
-		& -!!(spec->flags & _PRINTF_FLAG_SPACE);
-	args.flags |= _INTPRINT_FLAG_MARK_POS
-		& -!!(spec->flags & _PRINTF_FLAG_PLUS);
+	if (spec->flags & _PRINTF_FLAG_MINUS)
+		args.flags |= _INTPRINT_FLAG_LEFT_ADJ;
+	if (spec->flags & _PRINTF_FLAG_ZERO)
+		args.flags |= _INTPRINT_FLAG_ZERO_PAD;
+	if (spec->flags & _PRINTF_FLAG_HASH)
+		args.flags |= _INTPRINT_FLAG_ALT_FORM;
+	if (spec->flags & _PRINTF_FLAG_SPACE)
+		args.flags |= _INTPRINT_FLAG_PAD_POS;
+	if (spec->flags & _PRINTF_FLAG_PLUS)
+		args.flags |= _INTPRINT_FLAG_MARK_POS;
 	args.prec = spec->precision;
 	args.width = spec->width;
 	return (ft__intprint(os, (unsigned long long)p, &args));
