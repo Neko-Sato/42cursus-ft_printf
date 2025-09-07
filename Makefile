@@ -6,7 +6,7 @@
 #    By: hshimizu <hshimizu@42tokyo.student.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/24 19:05:06 by hshimizu          #+#    #+#              #
-#    Updated: 2025/09/07 16:50:22 by hshimizu         ###   ########.fr        #
+#    Updated: 2025/09/07 16:57:14 by hshimizu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,10 +65,17 @@ CFLAGS			+= -fno-builtin -fno-common
 CFLAGS			+= -fPIC -MMD -MP
 AR				:= ar
 ARFLAGS			:= rcs
-IDFLAGS			:= -I. -I./libft
-LDFLAGS			:= -L./libft
+IDFLAGS			:= -I.
+LDFLAGS			:= 
 LIBS			:=
 LIBS_DEV		:=
+
+ifneq ($(LIBFT_PATH),)
+IDFLAGS			+= -I$(LIBFT_PATH)
+LDFLAGS			+= -L$(LIBFT_PATH)
+LIBS			+= -Wl,-rpath,$(LIBFT_PATH)
+LIBS_DEV		+= -Wl,-rpath,$(LIBFT_PATH)
+endif
 
 CFLAGS_OPT		:= -O3 -DNDEBUG
 CFLAGS_DEV		:= -g -fsanitize=address
@@ -88,12 +95,11 @@ endif
 bonus: all
 
 $(NAME_A): CFLAGS += $(CFLAGS_OPT)
-$(NAME_A): $(OBJS) | $(LIBFT_A)
-	cp -f $(LIBFT_A) $@
+$(NAME_A): $(OBJS)
 	$(AR) $(ARFLAGS) $@ $^
 
 $(NAME_SO): CFLAGS += $(CFLAGS_OPT)
-$(NAME_SO): $(OBJS) $(LIBFT_A)
+$(NAME_SO): $(OBJS)
 ifeq ($(UNAME_S),Linux)
 	$(CC) $(CFLAGS) $(LDFLAGS) -shared -o $@ $^ $(LIBS)
 else ifeq ($(UNAME_S),Darwin)
@@ -105,12 +111,11 @@ $(OUTDIR)/%.o: %.c
 	$(CC) $(CFLAGS) $(IDFLAGS) -c $< -o $@
 
 $(NAME_DEV_A): CFLAGS += $(CFLAGS_DEV)
-$(NAME_DEV_A): $(OBJS_DEV) | $(LIBFT_DEV_A)
-	cp -f $(LIBFT_DEV_A) $@
+$(NAME_DEV_A): $(OBJS_DEV)
 	$(AR) $(ARFLAGS) $@ $^
 
 $(NAME_DEV_SO): CFLAGS += $(CFLAGS_DEV)
-$(NAME_DEV_SO): $(OBJS_DEV) $(LIBFT_DEV_A)
+$(NAME_DEV_SO): $(OBJS_DEV)
 ifeq ($(UNAME_S),Linux)
 	$(CC) $(CFLAGS) $(LDFLAGS) -shared -o $@ $^ $(LIBS_DEV)
 else ifeq ($(UNAME_S),Darwin)
@@ -121,14 +126,7 @@ $(OUTDIR)/%_dev.o: %.c
 	@mkdir -p $(@D)
 	$(CC) $(CFLAGS) $(IDFLAGS) -c $< -o $@
 
-$(LIBFT_A):
-	@$(MAKE) -C libft libft.a
-
-$(LIBFT_DEV_A):
-	@$(MAKE) -C libft libft_dev.a
-
 clean:
-	@$(MAKE) -C libft fclean
 	$(RM) -r $(OUTDIR)
 
 fclean: clean
