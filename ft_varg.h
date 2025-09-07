@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@42tokyo.student.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/07 15:36:52 by hshimizu          #+#    #+#             */
-/*   Updated: 2025/09/07 16:01:52 by hshimizu         ###   ########.fr       */
+/*   Updated: 2025/09/07 16:06:02 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,11 @@
 # include <stdarg.h>
 
 # if defined(__APPLE__)
+#  define _VARG_REF 1
 
 typedef va_list		*t__va_list_ref;
 # else
+#  define _VARG_REF 0
 
 typedef va_list		t__va_list_ref;
 # endif

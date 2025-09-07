@@ -6,13 +6,13 @@
 /*   By: hshimizu <hshimizu@42tokyo.student.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/07 15:36:52 by hshimizu          #+#    #+#             */
-/*   Updated: 2025/09/07 16:01:40 by hshimizu         ###   ########.fr       */
+/*   Updated: 2025/09/07 16:06:18 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ft_varg.h>
 
-#if !defined(__APPLE__)
+#if _VARG_REF == 0
 
 signed int	ft__va_arg_signed_int(t__va_list_ref ap)
 {

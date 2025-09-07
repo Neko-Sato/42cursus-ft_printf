@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@42tokyo.student.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 21:21:02 by hshimizu          #+#    #+#             */
-/*   Updated: 2025/09/07 15:39:48 by hshimizu         ###   ########.fr       */
+/*   Updated: 2025/09/07 16:04:21 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define FT_PRINTF_H
 
 # include <ft_ostream/ft_ostream.h>
-# include <ft_vargs.h>
+# include <ft_varg.h>
 
 int				ft_printf(const char *fmt, ...);
 int				ft_fprintf(t_ostream *os, const char *fmt, ...);
