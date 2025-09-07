@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@42tokyo.student.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 21:39:19 by hshimizu          #+#    #+#             */
-/*   Updated: 2025/09/02 09:57:23 by hshimizu         ###   ########.fr       */
+/*   Updated: 2025/09/07 16:12:13 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	ft_vsnprintf(char *str, size_t size, const char *fmt, va_list ap)
 	buffer.buf = str;
 	buffer.size = size;
 	buffer.pos = 0;
-	os._write_fn = (ssize_t(*)(const void *, size_t, void *))ft__write_buffer;
+	os._write_fn = ft__write_buffer;
 	os._arg = &buffer;
 	os._flags = 0;
 	os._lbf = OSTREAM_UNBUF;

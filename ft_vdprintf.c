@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@42tokyo.student.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 21:35:05 by hshimizu          #+#    #+#             */
-/*   Updated: 2025/09/02 09:54:10 by hshimizu         ###   ########.fr       */
+/*   Updated: 2025/09/07 16:12:05 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	ft_vdprintf(int fd, const char *fmt, va_list ap)
 	t_ostream	os;
 	char		buf[1024];
 
-	os._write_fn = (ssize_t(*)(const void *, size_t, void *))ft__write_fd;
+	os._write_fn = ft__write_fd;
 	os._arg = &fd;
 	os._flags = 0;
 	os._lbf = OSTREAM_FULLBUF;
