@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@42tokyo.student.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 10:13:54 by hshimizu          #+#    #+#             */
-/*   Updated: 2025/09/07 15:41:43 by hshimizu         ###   ########.fr       */
+/*   Updated: 2025/09/07 16:32:50 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,12 @@ size_t	ft__printf_handler_string(t_ostream *os,
 
 	s = ft__va_arg_string(ap);
 	if (!s)
-		s = "(null)";
+	{
+		if ((spec->precision == -1 || 5 < spec->precision))
+			s = "(null)";
+		else
+			return (0);
+	}
 	return (ft__printf_str(os, spec, s));
 }
 
