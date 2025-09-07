@@ -6,32 +6,31 @@
 /*   By: hshimizu <hshimizu@42tokyo.student.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 10:13:54 by hshimizu          #+#    #+#             */
-/*   Updated: 2025/09/07 16:44:38 by hshimizu         ###   ########.fr       */
+/*   Updated: 2025/09/08 06:12:24 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ft_printf.h>
 
-static unsigned long long	_value(const t__printf_specifier *spec,
-		t__printf_va_list_ref ap)
+static unsigned long long	_value(const t__printf_specifier *spec, va_list *ap)
 {
 	unsigned long long	n;
 
 	if (spec->rank <= -2)
-		n = (unsigned char)ft__printf_va_arg_unsigned_int(ap);
+		n = (unsigned char)va_arg(*ap, unsigned int);
 	else if (spec->rank == -1)
-		n = (unsigned short)ft__printf_va_arg_unsigned_int(ap);
+		n = (unsigned short)va_arg(*ap, unsigned int);
 	else if (spec->rank == 0)
-		n = ft__printf_va_arg_unsigned_int(ap);
+		n = va_arg(*ap, unsigned int);
 	else if (spec->rank == 1)
-		n = ft__printf_va_arg_unsigned_long(ap);
+		n = va_arg(*ap, unsigned long);
 	else
-		n = ft__printf_va_arg_unsigned_long_long(ap);
+		n = va_arg(*ap, unsigned long long);
 	return (n);
 }
 
 size_t	ft__printf_handler_unsigned(t_ostream *os,
-		const t__printf_specifier *spec, t__printf_va_list_ref ap)
+		const t__printf_specifier *spec, va_list *ap)
 {
 	t__iniprint_args	args;
 
@@ -53,7 +52,7 @@ size_t	ft__printf_handler_unsigned(t_ostream *os,
 }
 
 size_t	ft__printf_handler_hexadecimal_lower(t_ostream *os,
-		const t__printf_specifier *spec, t__printf_va_list_ref ap)
+		const t__printf_specifier *spec, va_list *ap)
 {
 	t__iniprint_args	args;
 
@@ -75,7 +74,7 @@ size_t	ft__printf_handler_hexadecimal_lower(t_ostream *os,
 }
 
 size_t	ft__printf_handler_hexadecimal_upper(t_ostream *os,
-		const t__printf_specifier *spec, t__printf_va_list_ref ap)
+		const t__printf_specifier *spec, va_list *ap)
 {
 	t__iniprint_args	args;
 
@@ -97,7 +96,7 @@ size_t	ft__printf_handler_hexadecimal_upper(t_ostream *os,
 }
 
 size_t	ft__printf_handler_octal(t_ostream *os, const t__printf_specifier *spec,
-		t__printf_va_list_ref ap)
+		va_list *ap)
 {
 	t__iniprint_args	args;
 

@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@42tokyo.student.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 23:01:33 by hshimizu          #+#    #+#             */
-/*   Updated: 2025/09/07 16:48:14 by hshimizu         ###   ########.fr       */
+/*   Updated: 2025/09/08 06:15:38 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,7 @@ static const t__printf_handler	g_handler[] = {
 static const size_t				g_handler_size
 	= sizeof(g_handler) / sizeof(g_handler[0]);
 
-static inline size_t	_internal(t_ostream *os, const char **fmt,
-		t__printf_va_list_ref ap)
+static inline size_t	_internal(t_ostream *os, const char **fmt, va_list *ap)
 {
 	size_t				ret;
 	const char			*tmp;
@@ -51,8 +50,7 @@ static inline size_t	_internal(t_ostream *os, const char **fmt,
 	return (ret);
 }
 
-static inline int	_core(t_ostream *os, const char *fmt,
-	t__printf_va_list_ref ap)
+static inline int	_core(t_ostream *os, const char *fmt, va_list *ap)
 {
 	size_t	ret;
 	char	*find;
@@ -79,16 +77,13 @@ static inline int	_core(t_ostream *os, const char *fmt,
 	return (ret);
 }
 
-#if defined(__APPLE__)
-
 int	ft_vfprintf(t_ostream *os, const char *fmt, va_list ap)
 {
-	return (_core(os, fmt, &ap));
-}
-#else
+	int		ret;
+	va_list	ap_copy;
 
-int	ft_vfprintf(t_ostream *os, const char *fmt, va_list ap)
-{
-	return (_core(os, fmt, ap));
+	va_copy(ap_copy, ap);
+	ret = _core(os, fmt, &ap_copy);
+	va_end(ap_copy);
+	return (ret);
 }
-#endif
