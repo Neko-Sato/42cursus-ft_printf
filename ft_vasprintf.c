@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@42tokyo.student.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 21:58:14 by hshimizu          #+#    #+#             */
-/*   Updated: 2025/09/12 01:40:53 by hshimizu         ###   ########.fr       */
+/*   Updated: 2025/09/12 01:42:46 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	ft_vasprintf(char **strptr, const char *fmt, va_list ap)
 	va_copy(ap2, ap);
 	size = ft_vsnprintf(0, 0, fmt, ap2);
 	va_end(ap2);
-	if (size < 0)
+	if (size == -1)
 		return (-1);
 	*strptr = malloc(++size);
 	if (!*strptr)
