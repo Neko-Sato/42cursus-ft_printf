@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@42tokyo.student.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 23:01:33 by hshimizu          #+#    #+#             */
-/*   Updated: 2025/09/08 06:15:38 by hshimizu         ###   ########.fr       */
+/*   Updated: 2026/03/17 06:23:33 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static inline size_t	_internal(t_ostream *os, const char **fmt, va_list *ap)
 
 	tmp = *fmt + 1;
 	tmp = ft__printf_parse_specifier(tmp, &spec);
-	if (0 <= *tmp && (size_t)(*tmp) <= g_handler_size)
+	if ((size_t)(*tmp) <= g_handler_size)
 		handler = g_handler[(unsigned char)*tmp];
 	else
 		handler = NULL;
