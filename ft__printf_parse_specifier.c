@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@42tokyo.student.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 14:47:50 by hshimizu          #+#    #+#             */
-/*   Updated: 2025/09/08 06:13:14 by hshimizu         ###   ########.fr       */
+/*   Updated: 2026/05/18 15:08:43 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@
 #include <ft_string/ft_string.h>
 #include <limits.h>
 
-static inline const char	*_parse_flags(const char *str, int *flags)
+static inline const char	*_parse_flags(const char *str, unsigned int *flags)
 {
-	static char const	marks[] = "-0# +";
-	static int const	values[] = {
+	static char const			marks[] = "-0# +";
+	static unsigned int const	values[] = {
 		_PRINTF_FLAG_MINUS,
 		_PRINTF_FLAG_ZERO,
 		_PRINTF_FLAG_HASH,
@@ -76,29 +76,43 @@ static inline const char	*_parse_precision(const char *str, int *precision)
 	return (str);
 }
 
-static inline const char	*_parse_rank(const char *str, int *rank)
+static inline const char	*_parse_length(const char *str,
+	t__printf_length *length)
 {
-	*rank = 0;
-	while (*str)
+	*length = _PRINTF_LEN_DEFAULT;
+	while (1)
 	{
 		if (*str == 'h')
-			(*rank)--;
+		{
+			*length = (str++, _PRINTF_LEN_SHORT);
+			if (*str == 'h')
+				*length = (str++, _PRINTF_LEN_CHAR);
+		}
 		else if (*str == 'l')
-			(*rank)++;
+		{
+			*length = (str++, _PRINTF_LEN_LONG);
+			if (*str == 'l')
+				*length = (str++, _PRINTF_LEN_LLONG);
+		}
+		else if (*str == 'j')
+			*length = (str++, _PRINTF_LEN_INTMAX);
+		else if (*str == 'z')
+			*length = (str++, _PRINTF_LEN_SIZE_T);
+		else if (*str == 't')
+			*length = (str++, _PRINTF_LEN_PTRDIFF);
 		else
 			break ;
-		str++;
 	}
 	return (str);
 }
 
-//	[flags][width][.precision]
+//	%[flags][width][.precision][length]type
 const char	*ft__printf_parse_specifier(const char *str,
 		t__printf_specifier *spec)
 {
 	str = _parse_flags(str, &spec->flags);
 	str = _parse_width(str, &spec->width);
 	str = _parse_precision(str, &spec->precision);
-	str = _parse_rank(str, &spec->rank);
+	str = _parse_length(str, &spec->length);
 	return (str);
 }

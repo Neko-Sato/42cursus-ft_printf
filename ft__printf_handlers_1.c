@@ -6,26 +6,33 @@
 /*   By: hshimizu <hshimizu@42tokyo.student.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 10:13:54 by hshimizu          #+#    #+#             */
-/*   Updated: 2025/09/08 06:11:37 by hshimizu         ###   ########.fr       */
+/*   Updated: 2026/05/18 14:50:31 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ft_printf.h>
+#include <stdint.h>
 
 static long long	_value(const t__printf_specifier *spec, va_list *ap)
 {
 	long long	n;
 
-	if (spec->rank <= -2)
+	if (spec->length == _PRINTF_LEN_CHAR)
 		n = (signed char)va_arg(*ap, int);
-	else if (spec->rank == -1)
+	else if (spec->length == _PRINTF_LEN_SHORT)
 		n = (signed short)va_arg(*ap, int);
-	else if (spec->rank == 0)
-		n = va_arg(*ap, int);
-	else if (spec->rank == 1)
+	else if (spec->length == _PRINTF_LEN_LONG)
 		n = va_arg(*ap, long);
-	else
+	else if (spec->length == _PRINTF_LEN_LLONG)
 		n = va_arg(*ap, long long);
+	else if (spec->length == _PRINTF_LEN_SIZE_T)
+		n = va_arg(*ap, ssize_t);
+	else if (spec->length == _PRINTF_LEN_INTMAX)
+		n = va_arg(*ap, intmax_t);
+	else if (spec->length == _PRINTF_LEN_PTRDIFF)
+		n = va_arg(*ap, ptrdiff_t);
+	else
+		n = va_arg(*ap, int);
 	return (n);
 }
 
