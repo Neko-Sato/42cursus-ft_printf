@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@42tokyo.student.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 14:47:50 by hshimizu          #+#    #+#             */
-/*   Updated: 2026/05/18 15:08:43 by hshimizu         ###   ########.fr       */
+/*   Updated: 2026/05/20 06:16:44 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static inline const char	*_parse_flags(const char *str, unsigned int *flags)
 		_PRINTF_FLAG_SPACE,
 		_PRINTF_FLAG_PLUS
 	};
-	const char			*tmp;
+	const char					*tmp;
 
 	*flags = 0;
 	while (1)
