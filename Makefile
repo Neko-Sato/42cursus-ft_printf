@@ -6,7 +6,7 @@
 #    By: hshimizu <hshimizu@42tokyo.student.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/24 19:05:06 by hshimizu          #+#    #+#              #
-#    Updated: 2025/09/08 06:16:24 by hshimizu         ###   ########.fr        #
+#    Updated: 2026/05/21 12:19:37 by hshimizu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,7 +60,6 @@ CFLAGS			:= -Wall -Wextra -Werror -std=c99 -pedantic
 CFLAGS			+= -fno-builtin -fno-common
 CFLAGS			+= -fPIC -MMD -MP
 AR				:= ar
-ARFLAGS			:= rcs
 IDFLAGS			:= -I. -I./libft
 LDFLAGS			:= -L./libft
 LIBS			:=
@@ -86,7 +85,7 @@ bonus: all
 $(NAME_A): CFLAGS += $(CFLAGS_OPT)
 $(NAME_A): $(OBJS) | $(LIBFT_A)
 	cp -f $(LIBFT_A) $@
-	$(AR) $(ARFLAGS) $@ $^
+	$(AR) rcs $@ $^
 
 $(NAME_SO): CFLAGS += $(CFLAGS_OPT)
 $(NAME_SO): $(OBJS) $(LIBFT_A)
@@ -103,7 +102,7 @@ $(OUTDIR)/%.o: %.c
 $(NAME_DEV_A): CFLAGS += $(CFLAGS_DEV)
 $(NAME_DEV_A): $(OBJS_DEV) | $(LIBFT_DEV_A)
 	cp -f $(LIBFT_DEV_A) $@
-	$(AR) $(ARFLAGS) $@ $^
+	$(AR) rcs $@ $^
 
 $(NAME_DEV_SO): CFLAGS += $(CFLAGS_DEV)
 $(NAME_DEV_SO): $(OBJS_DEV) $(LIBFT_DEV_A)
