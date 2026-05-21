@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@42tokyo.student.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 14:47:50 by hshimizu          #+#    #+#             */
-/*   Updated: 2026/05/20 06:09:49 by hshimizu         ###   ########.fr       */
+/*   Updated: 2026/05/21 12:11:29 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,29 +80,24 @@ static inline const char	*_parse_length(const char *str,
 	t__printf_length *length)
 {
 	*length = _PRINTF_LEN_DEFAULT;
-	while (1)
+	if (*str == 'h')
 	{
+		*length = (str++, _PRINTF_LEN_SHORT);
 		if (*str == 'h')
-		{
-			*length = (str++, _PRINTF_LEN_SHORT);
-			if (*str == 'h')
-				*length = (str++, _PRINTF_LEN_CHAR);
-		}
-		else if (*str == 'l')
-		{
-			*length = (str++, _PRINTF_LEN_LONG);
-			if (*str == 'l')
-				*length = (str++, _PRINTF_LEN_LLONG);
-		}
-		else if (*str == 'j')
-			*length = (str++, _PRINTF_LEN_INTMAX);
-		else if (*str == 'z')
-			*length = (str++, _PRINTF_LEN_SIZE_T);
-		else if (*str == 't')
-			*length = (str++, _PRINTF_LEN_PTRDIFF);
-		else
-			break ;
+			*length = (str++, _PRINTF_LEN_CHAR);
 	}
+	else if (*str == 'l')
+	{
+		*length = (str++, _PRINTF_LEN_LONG);
+		if (*str == 'l')
+			*length = (str++, _PRINTF_LEN_LLONG);
+	}
+	else if (*str == 'j')
+		*length = (str++, _PRINTF_LEN_INTMAX);
+	else if (*str == 'z')
+		*length = (str++, _PRINTF_LEN_SIZE_T);
+	else if (*str == 't')
+		*length = (str++, _PRINTF_LEN_PTRDIFF);
 	return (str);
 }
 
