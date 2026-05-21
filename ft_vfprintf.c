@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@42tokyo.student.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 23:01:33 by hshimizu          #+#    #+#             */
-/*   Updated: 2025/09/08 06:15:38 by hshimizu         ###   ########.fr       */
+/*   Updated: 2026/05/21 11:55:24 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,31 +23,33 @@ static const t__printf_handler	g_handler[] = {
 ['x'] = ft__printf_handler_hexadecimal_lower,
 ['X'] = ft__printf_handler_hexadecimal_upper,
 ['o'] = ft__printf_handler_octal,
-['%'] = ft__printf_handler_percent
+['%'] = ft__printf_handler_percent,
 };
 
 static const size_t				g_handler_size
 	= sizeof(g_handler) / sizeof(g_handler[0]);
 
-static inline size_t	_internal(t_ostream *os, const char **fmt, va_list *ap)
+static inline int	_internal(t_ostream *os, const char **fmt, va_list *ap,
+		size_t *ret)
 {
-	size_t				ret;
 	const char			*tmp;
 	t__printf_specifier	spec;
 	t__printf_handler	handler;
 
 	tmp = *fmt + 1;
 	tmp = ft__printf_parse_specifier(tmp, &spec);
-	if (0 <= *tmp && (size_t)(*tmp) <= g_handler_size)
-		handler = g_handler[(unsigned char)*tmp];
+	if (!*tmp)
+		return (1);
+	else if ((size_t)(*tmp) <= g_handler_size)
+		handler = g_handler[(size_t)(*tmp)];
 	else
 		handler = NULL;
 	if (handler)
-		ret = handler(os, &spec, ap);
+		*ret += handler(os, &spec, ap);
 	else
-		ret = ft_ostream_write(os, *fmt, tmp - *fmt);
+		*ret += ft_ostream_write(os, *fmt, tmp - *fmt);
 	*fmt = ++tmp;
-	return (ret);
+	return (0);
 }
 
 static inline int	_core(t_ostream *os, const char *fmt, va_list *ap)
@@ -67,7 +69,8 @@ static inline int	_core(t_ostream *os, const char *fmt, va_list *ap)
 		if (ft_ostream_error(os))
 			return (-1);
 		fmt = find;
-		ret += _internal(os, &fmt, ap);
+		if (_internal(os, &fmt, ap, &ret))
+			return (-1);
 		if (ft_ostream_error(os))
 			return (-1);
 	}
